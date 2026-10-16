@@ -19,12 +19,15 @@
 .streak-stat.is-active strong{color:#ffe28d;transform:scale(1.04)}
 .feedback.combo-pop{color:#ffe28d;text-shadow:0 0 12px #f5ad37aa,0 2px 4px #18282e;animation:combo-pop .78s cubic-bezier(.18,.74,.25,1) forwards}
 .stage.impact{animation:stage-impact .42s ease-out}
+.stage.near-miss{animation:stage-near-miss .22s ease-out}
+.feedback.near-miss-pop{color:#ffd078;text-shadow:0 0 12px #f5ad3780,0 2px 4px #18282e}
 .playbook article{transition:transform .18s ease,box-shadow .18s ease}
 .playbook article:hover{transform:translateY(-3px);box-shadow:0 8px 20px #262b2c12}
 @keyframes rally-glow{from{opacity:.45;transform:scale(.94)}to{opacity:1;transform:scale(1.05)}}
 @keyframes orbit-turn{to{transform:translate(-50%,-50%) rotate(360deg)}}
 @keyframes button-glow{0%,100%{box-shadow:0 3px 0 #9c2330,0 0 0 0 #f4645d00}50%{box-shadow:0 3px 0 #9c2330,0 0 0 6px #f4645d20}}
 @keyframes stage-impact{0%,100%{transform:translateX(0)}22%{transform:translateX(-7px)}48%{transform:translateX(6px)}72%{transform:translateX(-3px)}}
+@keyframes stage-near-miss{0%,100%{transform:translateX(0)}40%{transform:translateX(2px)}70%{transform:translateX(-1px)}}
 @keyframes combo-pop{0%{opacity:1;transform:translateY(7px) scale(.78)}22%{opacity:1;transform:translateY(-6px) scale(1.12)}100%{opacity:0;transform:translateY(-48px) scale(1.02)}}
 @media(max-width:480px){.streak-stat strong{font-size:16px;letter-spacing:-.7px}.scoreboard{gap:12px}.stat-label{letter-spacing:.55px}}
 @keyframes runner-bob{0%,100%{transform:translate(-50%,-50%) rotate(-7deg)}50%{transform:translate(-50%,-52%) rotate(-5deg)}}@keyframes collect-pop{0%{opacity:1;transform:translateY(5px) scale(.8)}20%{opacity:1;transform:translateY(-3px) scale(1.1)}100%{opacity:0;transform:translateY(-40px) scale(1)}}
@@ -83,7 +86,7 @@
 
   <dialog id="over-dialog" class="modal results-modal"><div class="modal-content"><p id="result-eyebrow" class="eyebrow">THE MOVEMENT CONTINUES</p><h2>Blocked.<br><span>Not stopped.</span></h2><p id="result-reason">Time for another run?</p><div class="results-grid"><div><span>YOUR SCORE</span><strong id="result-score">00000</strong></div><div><span>FLAGS COLLECTED</span><strong id="result-flags">0</strong></div></div><p class="result-best">PERSONAL BEST <b id="result-best">00000</b></p><button id="retry" class="button button-primary full">RUN IT BACK <span>↻</span></button><div class="button-row"><button id="share" class="button button-soft">Share score ↗</button><button id="home-over" class="button button-soft">Main menu</button></div><p id="share-status" class="modal-note" aria-live="polite"></p><textarea id="share-fallback" aria-label="Score text to copy" readonly hidden></textarea></div></dialog>
 
-  <dialog id="help-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="help-dialog" aria-label="Close instructions">×</button><p class="eyebrow">THE QUICK START</p><h2>Keep moving.</h2><p>Run automatically through Delhi. Time your moves, collect flags, and beat your personal best.</p><ol class="instructions-list"><li><b>Jump</b><span>Press Space, ↑, or W. On a phone, tap JUMP or the game area. Clear cones, barricades, and police obstacles.</span></li><li><b>Slide</b><span>Press ↓ or S, or tap SLIDE. Crouch under hanging banners marked ↓. Banners appear after 240 points.</span></li><li><b>Collect &amp; score</b><span>Earn 24 points each second and 10 per flag. Chain flags within 4 seconds for streak bonuses up to 20 points. The street gets faster as your score grows.</span></li><li><b>Pause</b><span>Press P or Esc, or use Ⅱ. Switching away from the game pauses your run automatically.</span></li></ol><button class="button button-primary full" data-close="help-dialog">GOT IT <span>→</span></button></div></dialog>
+  <dialog id="help-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="help-dialog" aria-label="Close instructions">×</button><p class="eyebrow">THE QUICK START</p><h2>Keep moving.</h2><p>Run automatically through Delhi. Time your moves, collect flags, and beat your personal best.</p><ol class="instructions-list"><li><b>Jump</b><span>Press Space, ↑, or W. On a phone, tap JUMP or the game area. Clear cones, barricades, and police obstacles.</span></li><li><b>Slide</b><span>Press ↓ or S, or tap SLIDE. Crouch under hanging banners marked ↓. Banners appear after 240 points.</span></li><li><b>Collect &amp; score</b><span>Earn 24 points each second and 10 per flag. Chain flags within 4 seconds for streak bonuses up to 20 points. Near misses add 15 points. The street gets faster as your score grows.</span></li><li><b>Pause</b><span>Press P or Esc, or use Ⅱ. Switching away from the game pauses your run automatically.</span></li></ol><button class="button button-primary full" data-close="help-dialog">GOT IT <span>→</span></button></div></dialog>
 
   <dialog id="settings-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="settings-dialog" aria-label="Close settings">×</button><p class="eyebrow">MAKE IT YOUR RUN</p><h2>Settings.</h2><label class="setting-row"><span><b>Sound effects</b><small>Jumps, flags, and game-over sounds</small></span><input id="setting-sound" type="checkbox" role="switch"></label><label class="setting-row"><span><b>Arcade music</b><small>The original synthesized game soundtrack</small></span><input id="setting-music" type="checkbox" role="switch"></label><label class="setting-row"><span><b>Reduced motion</b><small>Less background motion and no particles</small></span><input id="setting-motion" type="checkbox" role="switch"></label><p class="modal-note">Preferences are saved on this browser. Music plays during your run.</p><button class="button button-primary full" data-close="settings-dialog">DONE <span>✓</span></button></div></dialog>
   <p class="sr-only" id="announcement" aria-live="polite"></p>
@@ -114,7 +117,25 @@ function obstacleBounds(obstacle) {
 
 function createGame({ random = Math.random, onEvent = () => {} } = {}) {
   let state;
+  // Reuse frequently spawned objects so a long run creates fewer garbage-collection spikes.
+  const obstaclePool = Array.from({ length: 16 }, () => ({}));
+  const collectiblePool = Array.from({ length: 8 }, () => ({}));
+  const particlePool = Array.from({ length: 256 }, () => ({}));
+  function recycleAll(items, pool) {
+    for (const item of items) pool.push(item);
+    items.length = 0;
+  }
+  function releaseAt(items, index, pool) {
+    const item = items[index], last = items.pop();
+    if (index < items.length) items[index] = last;
+    pool.push(item);
+  }
   function reset() {
+    if (state) {
+      recycleAll(state.obstacles, obstaclePool);
+      recycleAll(state.collectibles, collectiblePool);
+      recycleAll(state.particles, particlePool);
+    }
     state = { mode: 'home', score: 0, flags: 0, speed: RULES.initialSpeed,
       frame: 0, worldDistance: 0, elapsed: 0, spawn: 0.72, flagSpawn: 1.1,
       combo: 0, comboTimer: 0, lastFlagBonus: 0, lastFlagPoints: RULES.flagPoints,
@@ -158,10 +179,13 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
   function burst(x, y, { count = 14, horizontal = 250, lift = 215, size = 4, life = 0.5,
     colors = ['#ffdc80', '#ff3945'] } = {}) {
     for (let i = 0; i < count; i++) {
+      const particle = particlePool.pop();
+      if (!particle) break;
       const maxLife = life * (0.72 + random() * 0.56);
-      state.particles.push({ x, y, vx: (random() - 0.5) * horizontal,
+      Object.assign(particle, { x, y, vx: (random() - 0.5) * horizontal,
         vy: -random() * lift - 35, life: maxLife, maxLife,
         size: size * (0.7 + random() * 0.7), c: colors[i % colors.length] });
+      state.particles.push(particle);
     }
   }
   function step(dt) {
@@ -178,12 +202,15 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     if (s.spawn <= 0) {
       const r = random(), type = s.score > 240 && r > 0.94 ? 'banner' : r < 0.24 ? 'cone' : r > 0.86 ? 'police' : 'barrier';
       // Fix the original 24–30% branch: a barricade must have barricade width.
-      s.obstacles.push({ x: 1000, w: type === 'banner' ? 100 : type === 'cone' ? 34 : 76, type });
+      const obstacle = obstaclePool.pop() || {};
+      Object.assign(obstacle, { x: 1000, w: type === 'banner' ? 100 : type === 'cone' ? 34 : 76, type, passed: false });
+      s.obstacles.push(obstacle);
       s.spawn += Math.max(0.78, 1.55 - (s.speed - 330) * 0.001 + random() * 0.38);
     }
     s.flagSpawn -= dt;
     if (s.flagSpawn <= 0) {
-      s.collectibles.push({ x: 1000 }); s.flagSpawn += 1.65 + random() * 1.55;
+      const collectible = collectiblePool.pop() || {};
+      collectible.x = 1000; s.collectibles.push(collectible); s.flagSpawn += 1.65 + random() * 1.55;
     }
     p.jumpBuffer = Math.max(0, p.jumpBuffer - dt);
     p.slide = Math.max(0, p.slide - dt);
@@ -199,13 +226,20 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       }
     }
     if (p.onGround && p.slide <= 0 && p.jumpBuffer > 0) launchJump();
-    for (const o of s.obstacles) o.x -= s.speed * dt;
-    for (const c of s.collectibles) c.x -= s.speed * dt;
-    s.obstacles = s.obstacles.filter(o => o.x > -140);
-    s.collectibles = s.collectibles.filter(c => c.x > -40);
+    for (let i = s.obstacles.length - 1; i >= 0; i--) {
+      const obstacle = s.obstacles[i]; obstacle.x -= s.speed * dt;
+      if (obstacle.x <= -140) releaseAt(s.obstacles, i, obstaclePool);
+    }
+    for (let i = s.collectibles.length - 1; i >= 0; i--) {
+      const collectible = s.collectibles[i]; collectible.x -= s.speed * dt;
+      if (collectible.x <= -40) releaseAt(s.collectibles, i, collectiblePool);
+    }
     const box = playerBounds(p);
     for (const obstacle of s.obstacles) {
-      if (intersects(box, obstacleBounds(obstacle))) { end(); return; }
+      if (intersects(box, obstacleBounds(obstacle))) {
+        burst(obstacle.x + obstacle.w * .52, RULES.ground - 26, { count: 30, horizontal: 340, lift: 190, size: 5, life: .68, colors: ['#ffd16c', '#f65b42', '#fff0c4'] });
+        end(); return;
+      }
     }
     for (const obstacle of s.obstacles) {
       if (obstacle.passed) continue;
@@ -213,13 +247,16 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       if (bounds.x + bounds.w >= box.x) continue;
       obstacle.passed = true;
       const verticalGap = Math.max(0, Math.max(box.y - (bounds.y + bounds.h), bounds.y - (box.y + box.h)));
-      onEvent(verticalGap < 18 ? 'near-miss' : 'clear', s);
+      if (verticalGap < 18) {
+        s.score += 15; s.lastNearMissBonus = 15;
+        onEvent('near-miss', s);
+      } else onEvent('clear', s);
     }
     for (let i = s.collectibles.length - 1; i >= 0; i--) {
       const c = s.collectibles[i];
       if (Math.abs(box.x + box.w / 2 - (c.x + 15)) < 34 &&
           Math.abs(box.y + box.h / 2 - (RULES.ground - 92)) < 60) {
-        s.collectibles.splice(i, 1); s.flags++;
+        releaseAt(s.collectibles, i, collectiblePool); s.flags++;
         s.combo++; s.comboTimer = 4;
         s.lastFlagBonus = Math.min(20, (s.combo - 1) * 5);
         s.lastFlagPoints = RULES.flagPoints + s.lastFlagBonus;
@@ -228,11 +265,12 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
         onEvent('flag', s);
       }
     }
-    for (const particle of s.particles) {
+    for (let i = s.particles.length - 1; i >= 0; i--) {
+      const particle = s.particles[i];
       particle.x += particle.vx * dt; particle.y += particle.vy * dt;
       particle.vy += 720 * dt; particle.life -= dt;
+      if (particle.life <= 0) releaseAt(s.particles, i, particlePool);
     }
-    s.particles = s.particles.filter(p => p.life > 0);
   }
   reset();
   return { get state() { return state; }, start, jump, slide, pause, resume, home, step };
@@ -481,13 +519,33 @@ function drawFlagTrail(x, y, scale, speed, elapsed, reducedMotion) {
  }
  ctx.restore();
 }
+function mixColor(from, to, amount) {
+ const a = from.match(/[\da-f]{2}/gi).map(value => parseInt(value, 16));
+ const b = to.match(/[\da-f]{2}/gi).map(value => parseInt(value, 16));
+ return `rgb(${a.map((value, i) => Math.round(value + (b[i] - value) * amount)).join(',')})`;
+}
 function drawSky(){
+  // A slow run-time palette shift gives long runs a day-to-sunset arc.
+  const dusk = Math.min(1, Math.max(0, sceneTime / 110));
  const g=ctx.createLinearGradient(0,0,0,ground);
- g.addColorStop(0,'#4d8bd3');g.addColorStop(.52,'#f3a37f');g.addColorStop(1,'#ffe0ad');
+  const skyTop=mixColor('#4d8bd3','#4c416e',dusk), skyMiddle=mixColor('#f3a37f','#bd6477',dusk);
+  const skyHorizon=mixColor('#ffe0ad','#f28b63',dusk), buildingColor=mixColor('#8c7a8c','#554b61',dusk);
+  const windowColor=mixColor('#e9c4aa','#e39a80',dusk), landmarkColor=mixColor('#c88b78','#9a5861',dusk);
+  g.addColorStop(0,skyTop);g.addColorStop(.52,skyMiddle);g.addColorStop(1,skyHorizon);
  ctx.fillStyle=g;ctx.fillRect(0,0,960,ground);
  const glow=ctx.createRadialGradient(650,185,12,650,185,230);
- glow.addColorStop(0,'#fff2c4aa');glow.addColorStop(1,'#fff2c400');
+  glow.addColorStop(0,`rgba(255,${Math.round(242-76*dusk)},${Math.round(196-92*dusk)},.68)`);
+  glow.addColorStop(1,'rgba(255,170,115,0)');
  ctx.fillStyle=glow;ctx.fillRect(400,0,500,ground);
+  if (dusk > .62) {
+    ctx.save(); ctx.globalAlpha = (dusk - .62) * 1.8;
+    for (let i=0;i<13;i++) {
+      const x=75+(i*137%790), y=24+(i*47%115), twinkle=.55+.45*Math.sin(sceneTime*1.6+i*2.1);
+      ctx.globalAlpha = (dusk-.62)*1.8*twinkle;
+      ctx.fillStyle='#fff2d5';ctx.fillRect(x,y,2,2);
+    }
+    ctx.restore();
+  }
  // Soft rounded clouds instead of block clouds.
  for(let i=0;i<6;i++){
    const x=((i*190-worldDistance*.12)%1120+1120)%1120-90,y=60+(i%3)*48;
@@ -500,15 +558,15 @@ function drawSky(){
  // Layered Delhi skyline.
  for(let i=0;i<16;i++){
    const x=i*68-(worldDistance*.09%68),h=30+(i*31%58);
-   rect(x,ground-130-h,54,h,'#8c7a8c');
-   rect(x+6,ground-135-h,42,6,'#8c7a8c');
-   for(let j=0;j<3;j++)rect(x+9+j*13,ground-118-h,5,8,'#e9c4aa');
+   rect(x,ground-130-h,54,h,buildingColor);
+   rect(x+6,ground-135-h,42,6,buildingColor);
+   for(let j=0;j<3;j++)rect(x+9+j*13,ground-118-h,5,8,windowColor);
  }
  // India Gate inspired landmark with arch cutout.
- ctx.fillStyle='#c88b78';
+  ctx.fillStyle=landmarkColor;
  ctx.beginPath();ctx.moveTo(685,240);ctx.lineTo(698,157);ctx.lineTo(720,157);ctx.lineTo(728,119);ctx.lineTo(792,119);ctx.lineTo(800,157);ctx.lineTo(821,157);ctx.lineTo(835,240);ctx.closePath();ctx.fill();
- rect(680,235,160,9,'#b97b70');rect(710,160,100,5,'#f0b79a');
- ctx.fillStyle='#8a7183';ctx.beginPath();ctx.moveTo(739,240);ctx.lineTo(744,185);ctx.quadraticCurveTo(760,168,776,185);ctx.lineTo(781,240);ctx.closePath();ctx.fill();
+  rect(680,235,160,9,mixColor('#b97b70','#824c5b',dusk));rect(710,160,100,5,mixColor('#f0b79a','#d68e7e',dusk));
+  ctx.fillStyle=mixColor('#8a7183','#5e4969',dusk);ctx.beginPath();ctx.moveTo(739,240);ctx.lineTo(744,185);ctx.quadraticCurveTo(760,168,776,185);ctx.lineTo(781,240);ctx.closePath();ctx.fill();
  // Trees with rounded canopies and gentle parallax.
  for(let i=0;i<18;i++){
    const x=((i*65-worldDistance*.19)%1120+1120)%1120-60;
@@ -728,7 +786,7 @@ function setSetting(key, value) {
 function onEvent(event, state) {
   if (event === 'start' || event === 'resume') {
     closeDialogs(); clock?.reset();
-    $('home-screen').hidden = true; $('stage').classList.remove('is-home', 'impact'); $('stage').classList.add('is-running'); $('scene-label').hidden = false;
+    $('home-screen').hidden = true; $('stage').classList.remove('is-home', 'impact', 'near-miss'); $('stage').classList.add('is-running'); $('scene-label').hidden = false;
     $('run-status').textContent = '↑ Jump obstacles · ↓ Slide under banners';
     if (settings.sound || settings.music) audio.unlock();
     if (settings.music) audio.play();
@@ -740,7 +798,7 @@ function onEvent(event, state) {
     audio.stop(); clock?.reset(); showDialog('pause-dialog');
     $('run-status').textContent = 'Your run is paused.'; announce('Run paused.');
   } else if (event === 'over') {
-    $('stage').classList.remove('is-running'); $('stage').classList.remove('impact');
+    $('stage').classList.remove('is-running', 'near-miss', 'impact');
     if (!settings.reducedMotion) { void $('stage').offsetWidth; $('stage').classList.add('impact'); }
     audio.stop();
     if (settings.sound) audio.beep(120, 0.2);
@@ -757,10 +815,27 @@ function onEvent(event, state) {
     announce(`Run complete. Score ${finalScore}. ${state.flags} flags collected.${record ? ' New personal best.' : ''}`);
   } else if (event === 'home') {
     audio.stop(); clock?.reset(); closeDialogs();
-    $('home-screen').hidden = false; $('stage').classList.remove('is-running', 'impact'); $('stage').classList.add('is-home'); $('scene-label').hidden = true;
+    $('home-screen').hidden = false; $('stage').classList.remove('is-running', 'impact', 'near-miss'); $('stage').classList.add('is-home'); $('scene-label').hidden = true;
     $('run-status').innerHTML = '<span class="tiny-star">★</span> Ready when you are.';
     $('start').focus({ preventScroll: true });
   } else if (event === 'jump' && settings.sound) audio.beep(360);
+  else if (event === 'clear' || event === 'near-miss') {
+    const nearMiss = event === 'near-miss';
+    const feedback = $('feedback');
+    feedback.textContent = nearMiss ? 'CLOSE CALL +15' : 'CLEAN CLEAR';
+    feedback.classList.remove('pop', 'combo-pop', 'near-miss-pop');
+    if (!settings.reducedMotion) {
+      void feedback.offsetWidth;
+      feedback.classList.add('pop');
+      if (nearMiss) {
+        feedback.classList.add('near-miss-pop');
+        const stage = $('stage'); stage.classList.remove('near-miss'); void stage.offsetWidth; stage.classList.add('near-miss');
+      }
+    }
+    $('run-status').textContent = nearMiss ? 'Close call! +15 points.' : 'Obstacle cleared. Keep moving.';
+    if (nearMiss && settings.sound) audio.beep(960, .09);
+    if (nearMiss) announce('Near miss. 15 bonus points.');
+  }
   else if (event === 'flag') {
     const points = state.lastFlagPoints || RULES.flagPoints;
     const combo = state.combo || 0;
