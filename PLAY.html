@@ -10,6 +10,23 @@
   <style>@charset "UTF-8";
 :root{--paper:#f5f1e9;--ink:#262b2c;--muted:#6f716c;--red:#d9363c;--red-dark:#b62531;--line:#dcd8cf;--navy:#18282e;--cream:#fff2d5;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);font-synthesis:none;color-scheme:light}
 *{box-sizing:border-box}body{margin:0}button,a,input,textarea{-webkit-tap-highlight-color:transparent}button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.35}button{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #e8a526;outline-offset:5px}[hidden]{display:none!important}button,a{transition:background .16s,color .16s,transform .16s}button:active:not(:disabled){transform:translateY(2px)}.page{max-width:1232px;padding:0 36px;margin:auto}.site-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:30px 0 26px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:13px;text-decoration:none;color:var(--ink);font-size:15px;font-weight:900;letter-spacing:-.3px}.brand-icon{display:grid;place-items:center;background:var(--red);color:var(--paper);width:45px;height:45px;border-radius:10px;font-size:29px}.brand small{display:block;font-size:9px;letter-spacing:2.5px;margin-top:7px;font-weight:600}.header-actions{display:flex;align-items:center;gap:24px}.edition{font-size:10px;letter-spacing:1.6px;font-weight:800}.edition span{display:inline-block;margin-left:8px;padding:5px;border:1px solid var(--line);border-radius:4px}.icon-button{width:38px;height:38px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);font-size:22px}.icon-button:hover{background:#e7e1d6}.section-heading{display:flex;justify-content:space-between;align-items:center;padding:26px 0 18px;gap:10px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.6px;margin:0;color:var(--muted);line-height:1.6}.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:7px}.text-button{border:0;background:transparent;font-weight:700;font-size:12px;padding:6px 0;color:var(--ink)}.text-button span{margin-left:12px;color:var(--red)}.arcade-shell{border:1px solid #24363c;border-radius:16px;overflow:hidden;box-shadow:0 15px 45px #2d302810;background:var(--navy)}.scoreboard{display:flex;align-items:center;gap:40px;background:var(--navy);padding:19px 24px;color:var(--cream);border-bottom:1px solid #ffffff15}.score-stat{min-width:100px}.stat-label{display:block;color:#acb8b7;font-size:9px;letter-spacing:1.3px;font-weight:700;margin-bottom:5px}.score-stat strong{font-size:27px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:1px;font-weight:600;font-variant-numeric:tabular-nums}.main-score strong{color:#ffe6a5}.flag-stat strong>span:first-child{color:#ff6a65;font-size:24px}.board-controls{display:flex;gap:16px;align-items:center;margin-left:auto}.pace{font-size:9px;letter-spacing:1.3px;color:#a8bab6}.pause-button{border:1px solid #56706f;color:var(--cream);background:#ffffff07;width:40px;height:40px;border-radius:8px;font-size:22px;font-weight:700}.pause-button:hover:not(:disabled){background:#ffffff18}.stage{position:relative;aspect-ratio:16/9;isolation:isolate;overflow:hidden;background:#c8a48b}.stage canvas{width:100%;height:100%;display:block;touch-action:manipulation;object-fit:contain}.stage.is-home{aspect-ratio:auto;min-height:540px}.stage.is-home canvas{position:absolute;inset:0;object-fit:cover;filter:saturate(.65);opacity:.34}.home-screen{position:relative;z-index:2;display:grid;grid-template-columns:1fr .85fr;min-height:540px;padding:39px 48px 60px;background:linear-gradient(95deg,#213132f5 0%,#213132dc 45%,#2131322b 100%);overflow:hidden}.home-copy{position:relative;z-index:2}.kicker{display:flex;align-items:center;gap:10px;color:#e5c6ac;font-weight:700;font-size:10px;letter-spacing:2px;margin:0 0 17px}.kicker span{display:block;width:24px;height:2px;background:#e95d53}h1{font-family:Impact,"Arial Narrow",Arial,sans-serif;font-weight:900;font-size:clamp(48px,6.6vw,80px);line-height:.94;letter-spacing:.3px;margin:0;color:#fff4dc}h1>span{color:#f4645d}.home-description{font-size:14px;line-height:1.7;color:#d7ded6;margin:22px 0 24px}.home-buttons{display:flex;gap:17px;align-items:center}.button{border:0;border-radius:7px;padding:16px 22px;display:inline-flex;align-items:center;justify-content:center;gap:34px;font-size:12px;font-weight:800;letter-spacing:.5px;min-height:48px}.button-primary{background:var(--red);color:#fff6e6;box-shadow:0 3px 0 #9c2330}.button-primary:hover{background:#ed4549;transform:translateY(-1px)}.button-primary>span{font-size:21px;line-height:1}.start-hint{font-size:10px;color:#b7c5c0;white-space:nowrap}kbd{font-family:inherit;font-size:10px;border:1px solid currentColor;border-radius:4px;padding:2px 5px;white-space:nowrap}.start-hint kbd{margin-left:5px;color:#d4ded6}.hero-art{position:relative;min-width:0;align-self:stretch}.hero-orbit{position:absolute;border:1px solid #fff6cf26;border-radius:50%;width:310px;height:310px;left:50%;top:45%;transform:translate(-50%,-50%)}.orbit-two{width:380px;height:380px;border-style:dashed}.hero-runner{position:absolute;height:350px;width:auto;max-width:100%;object-fit:contain;left:50%;top:43%;transform:translate(-50%,-50%) rotate(-7deg);filter:drop-shadow(8px 14px 12px #0c1c2a55);animation:runner-bob 3s ease-in-out infinite}.hero-shadow{position:absolute;left:50%;top:84%;width:210px;height:16px;transform:translateX(-50%);background:#15212455;border-radius:50%;filter:blur(8px)}.hero-star{position:absolute;color:#f5ce87}.star-one{font-size:47px;top:5%;left:2%;transform:rotate(14deg)}.star-two{font-size:20px;top:24%;right:0;transform:rotate(-15deg)}.hero-stamp{position:absolute;bottom:-8px;right:-3px;transform:rotate(8deg);color:#ffecd6;font-size:18px;line-height:1.05;font-weight:900;letter-spacing:1px;border:1px solid #ffe5bc70;background:#d9363c;padding:14px 16px;box-shadow:5px 5px 0 #182b2a40}.hero-stamp b{font-size:25px}.hero-stamp span{font-size:6px;letter-spacing:1px;display:block;margin-top:9px;font-weight:normal}.home-caption{position:absolute;bottom:19px;left:48px;right:30px;display:flex;justify-content:space-between;font-size:8px;letter-spacing:1.8px;color:#b4c3bb;font-weight:700}.scene-label{position:absolute;top:18px;left:20px;border-radius:5px;padding:9px 12px;background:#18282edb;color:#fff5e1;font-size:9px;font-weight:700;letter-spacing:1px}.scene-label .live-dot{background:#ff7563;width:5px;height:5px}.game-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 23px;color:#bdc8c3;font-size:10px}.tiny-star{color:#f4615c;margin-right:8px}.audio-controls{display:flex;gap:18px;white-space:nowrap}.audio-controls button{padding:5px 0;border:0;background:none;color:#cbd6d1;font-size:9px;letter-spacing:1px;font-weight:700}.audio-controls button span{color:#a8b8b2;font-size:8px;margin-left:5px}.audio-controls button[aria-pressed=true] span{color:#ffda8e}.feedback{position:absolute;left:27%;top:45%;pointer-events:none;color:#fff0a2;text-shadow:0 2px 4px #18282e;font-size:24px;font-weight:900;opacity:0}.feedback.pop{animation:collect-pop .6s ease-out}.touch-controls{display:none;gap:12px;margin-top:15px}.touch-button{flex:1;background:#eee7dc;color:var(--ink);border:1px solid #c9c2b5;box-shadow:0 3px 0 #d5cbbb;min-height:68px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:17px;font-size:13px;font-weight:800;touch-action:none;user-select:none;-webkit-user-select:none}.touch-button>span:first-child{font-size:28px;color:var(--red)}.touch-button small{display:block;margin-top:4px;font-size:9px;font-weight:400}.playbook{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}.playbook article{position:relative;display:flex;align-items:center;gap:13px;padding:18px;background:#faf8f2;border:1px solid var(--line);border-radius:10px;overflow:hidden}.control-key{flex:0 0 37px;width:37px;height:37px;display:grid;place-items:center;border:1px solid #d9d2c5;border-radius:8px;background:#f0e9dd;font-size:22px}.flag-key{color:var(--red)}.playbook h2{margin:0 0 7px;font-size:13px;letter-spacing:-.2px}.playbook p{font-size:10px;margin:0;color:var(--muted);line-height:1.6}.playbook kbd{padding:1px 3px;font-size:8px;color:#7c7d74}.step-number{position:absolute;right:9px;top:7px;font-size:8px;letter-spacing:1px;color:#a3a396}.storage-note{text-align:center;color:#777b72;font-size:10px;margin:18px 0 28px;line-height:1.6}footer{border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:22px 0 26px;font-size:9px;color:var(--muted)}footer>span:first-child{font-size:9px;font-weight:800;letter-spacing:1px}.footer-star{color:var(--red);padding:0 8px}.modal{border:1px solid #d5cdbe;border-radius:18px;padding:0;width:min(440px,calc(100vw - 28px));max-height:calc(100dvh - 32px);color:var(--ink);background:var(--paper);box-shadow:0 25px 90px #0005;overflow-y:auto}.modal::backdrop{background:#132428b8;backdrop-filter:blur(5px)}.modal-content{padding:35px;position:relative}.modal .eyebrow{color:var(--red);font-size:9px}.modal h2{font-size:42px;letter-spacing:-2px;line-height:1.04;margin:16px 0;font-weight:900}.modal h2 span{color:var(--red)}.modal p:not(.eyebrow){font-size:13px;color:#6b706b;line-height:1.65}.modal .full{width:100%;justify-content:space-between;margin-top:10px}.button-row{display:flex;gap:10px;margin-top:12px}.button-row .button{flex:1;font-size:11px;padding:12px 7px;letter-spacing:0}.button-soft{background:#e7e1d5;border:1px solid #d9d0c1;color:var(--ink)}.button-soft:hover{background:#dcd3c3}.modal .modal-note{font-size:10px;text-align:center;margin:18px 0 0;color:#777d74}.modal-close{position:absolute;right:16px;top:12px;color:#626a63;font-size:27px;width:34px;height:34px;background:transparent;border:0}.results-grid{display:grid;grid-template-columns:1fr 1fr;padding:22px 0;margin-top:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);gap:16px}.results-grid span{display:block;font-size:8px;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:8px}.results-grid strong{font-family:ui-monospace,Consolas,monospace;font-size:32px;letter-spacing:-1px}.results-grid>div+div{border-left:1px solid var(--line);padding-left:20px}.modal .result-best{font-size:9px;letter-spacing:1px;display:flex;justify-content:space-between}.result-best b{color:var(--red)}.instructions-list{padding:0;list-style:none;counter-reset:steps;margin:24px 0}.instructions-list li{position:relative;padding:0 0 19px 32px;counter-increment:steps}.instructions-list li:before{content:counter(steps,decimal-leading-zero);position:absolute;left:0;top:0;color:var(--red);font-size:10px;font-weight:800}.instructions-list b{display:block;font-size:13px;margin-bottom:5px}.instructions-list span{font-size:11px;color:#6b706b;line-height:1.6;display:block}.setting-row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:20px 0;border-bottom:1px solid var(--line)}.setting-row b{font-size:13px}.setting-row small{display:block;font-size:10px;color:var(--muted);margin-top:6px;line-height:1.5}.setting-row input{accent-color:var(--red);width:22px;height:22px;flex-shrink:0;cursor:pointer}.sr-only{position:absolute;clip:rect(0,0,0,0);clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap}.error-message{color:#a01e24;background:#f7e1da;padding:15px;border-radius:8px;font-size:12px;line-height:1.5}#share-fallback{width:100%;height:100px;font-size:12px;border:1px solid var(--line);border-radius:7px;padding:10px;background:#fff9ed}.reduced-motion *, .reduced-motion *::before{animation:none!important;transition:none!important}
+.home-screen::before{content:"";position:absolute;z-index:0;pointer-events:none;left:25%;right:-25%;bottom:-48%;height:88%;border-radius:50%;background:radial-gradient(ellipse,#f4645d35 0%,#f4645d00 68%);animation:rally-glow 5s ease-in-out infinite alternate}
+.hero-art{z-index:1}
+.home-caption{z-index:3}
+.hero-orbit.orbit-two{animation:orbit-turn 36s linear infinite}
+#start.button-primary{animation:button-glow 2.8s ease-in-out infinite}
+.streak-stat strong{transition:color .2s,transform .2s}
+.streak-stat.is-active strong{color:#ffe28d;transform:scale(1.04)}
+.feedback.combo-pop{color:#ffe28d;text-shadow:0 0 12px #f5ad37aa,0 2px 4px #18282e;animation:combo-pop .78s cubic-bezier(.18,.74,.25,1) forwards}
+.stage.impact{animation:stage-impact .42s ease-out}
+.playbook article{transition:transform .18s ease,box-shadow .18s ease}
+.playbook article:hover{transform:translateY(-3px);box-shadow:0 8px 20px #262b2c12}
+@keyframes rally-glow{from{opacity:.45;transform:scale(.94)}to{opacity:1;transform:scale(1.05)}}
+@keyframes orbit-turn{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes button-glow{0%,100%{box-shadow:0 3px 0 #9c2330,0 0 0 0 #f4645d00}50%{box-shadow:0 3px 0 #9c2330,0 0 0 6px #f4645d20}}
+@keyframes stage-impact{0%,100%{transform:translateX(0)}22%{transform:translateX(-7px)}48%{transform:translateX(6px)}72%{transform:translateX(-3px)}}
+@keyframes combo-pop{0%{opacity:1;transform:translateY(7px) scale(.78)}22%{opacity:1;transform:translateY(-6px) scale(1.12)}100%{opacity:0;transform:translateY(-48px) scale(1.02)}}
+@media(max-width:480px){.streak-stat strong{font-size:16px;letter-spacing:-.7px}.scoreboard{gap:12px}.stat-label{letter-spacing:.55px}}
 @keyframes runner-bob{0%,100%{transform:translate(-50%,-50%) rotate(-7deg)}50%{transform:translate(-50%,-52%) rotate(-5deg)}}@keyframes collect-pop{0%{opacity:1;transform:translateY(5px) scale(.8)}20%{opacity:1;transform:translateY(-3px) scale(1.1)}100%{opacity:0;transform:translateY(-40px) scale(1)}}
 @media(hover:none),(pointer:coarse){.touch-controls{display:flex}}
 @media(min-width:1250px){.home-screen{min-height:570px;padding-top:45px}.hero-runner{height:370px}}
@@ -34,6 +51,7 @@
           <div class="score-stat main-score"><span class="stat-label">YOUR SCORE</span><strong id="score">00000</strong></div>
           <div class="score-stat"><span class="stat-label">PERSONAL BEST</span><strong id="best">00000</strong></div>
           <div class="score-stat flag-stat"><span class="stat-label">FLAGS</span><strong><span aria-hidden="true">⚑</span> <span id="flags">0</span></strong></div>
+          <div class="score-stat streak-stat" id="streak-card"><span class="stat-label">FLAG STREAK</span><strong id="streak">—</strong></div>
           <div class="board-controls"><span id="pace" class="pace">READY TO RUN</span><button id="pause" class="pause-button" aria-label="Pause game" disabled><span aria-hidden="true">Ⅱ</span></button></div>
         </div>
 
@@ -53,7 +71,7 @@
 
       <div class="touch-controls" aria-label="Touch game controls"><button id="jump" class="touch-button"><span aria-hidden="true">↑</span><span>JUMP<small>Clear the obstacles</small></span></button><button id="slide" class="touch-button"><span aria-hidden="true">↓</span><span>SLIDE<small>Get under banners</small></span></button></div>
 
-      <section class="playbook" aria-label="Quick controls"><article><span class="control-key">↑</span><div><h2>Rise above.</h2><p><kbd>Space</kbd> or <kbd>↑</kbd> to jump</p></div><span class="step-number">01</span></article><article><span class="control-key">↓</span><div><h2>Stay quick.</h2><p><kbd>↓</kbd> to slide under banners</p></div><span class="step-number">02</span></article><article><span class="control-key flag-key">⚑</span><div><h2>Carry it forward.</h2><p>Every flag adds <b>10 points</b></p></div><span class="step-number">03</span></article></section>
+      <section class="playbook" aria-label="Quick controls"><article><span class="control-key">↑</span><div><h2>Rise above.</h2><p><kbd>Space</kbd> or <kbd>↑</kbd> to jump</p></div><span class="step-number">01</span></article><article><span class="control-key">↓</span><div><h2>Stay quick.</h2><p><kbd>↓</kbd> to slide under banners</p></div><span class="step-number">02</span></article><article><span class="control-key flag-key">⚑</span><div><h2>Carry it forward.</h2><p>10 base · streak bonus up to <b>+20</b></p></div><span class="step-number">03</span></article></section>
       <p class="storage-note" id="storage-note">Your best score stays on this browser. Play on mobile or desktop.</p>
       <noscript><p class="error-message">Enable JavaScript to play The Democracy Run.</p></noscript>
       <p id="load-error" class="error-message" hidden></p>
@@ -65,7 +83,7 @@
 
   <dialog id="over-dialog" class="modal results-modal"><div class="modal-content"><p id="result-eyebrow" class="eyebrow">THE MOVEMENT CONTINUES</p><h2>Blocked.<br><span>Not stopped.</span></h2><p id="result-reason">Time for another run?</p><div class="results-grid"><div><span>YOUR SCORE</span><strong id="result-score">00000</strong></div><div><span>FLAGS COLLECTED</span><strong id="result-flags">0</strong></div></div><p class="result-best">PERSONAL BEST <b id="result-best">00000</b></p><button id="retry" class="button button-primary full">RUN IT BACK <span>↻</span></button><div class="button-row"><button id="share" class="button button-soft">Share score ↗</button><button id="home-over" class="button button-soft">Main menu</button></div><p id="share-status" class="modal-note" aria-live="polite"></p><textarea id="share-fallback" aria-label="Score text to copy" readonly hidden></textarea></div></dialog>
 
-  <dialog id="help-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="help-dialog" aria-label="Close instructions">×</button><p class="eyebrow">THE QUICK START</p><h2>Keep moving.</h2><p>Run automatically through Delhi. Time your moves, collect flags, and beat your personal best.</p><ol class="instructions-list"><li><b>Jump</b><span>Press Space, ↑, or W. On a phone, tap JUMP or the game area. Clear cones, barricades, and police obstacles.</span></li><li><b>Slide</b><span>Press ↓ or S, or tap SLIDE. Crouch under hanging banners marked ↓. Banners appear after 240 points.</span></li><li><b>Collect &amp; score</b><span>Earn 24 points each second and 10 per flag. The street gets faster as your score grows.</span></li><li><b>Pause</b><span>Press P or Esc, or use Ⅱ. Switching away from the game pauses your run automatically.</span></li></ol><button class="button button-primary full" data-close="help-dialog">GOT IT <span>→</span></button></div></dialog>
+  <dialog id="help-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="help-dialog" aria-label="Close instructions">×</button><p class="eyebrow">THE QUICK START</p><h2>Keep moving.</h2><p>Run automatically through Delhi. Time your moves, collect flags, and beat your personal best.</p><ol class="instructions-list"><li><b>Jump</b><span>Press Space, ↑, or W. On a phone, tap JUMP or the game area. Clear cones, barricades, and police obstacles.</span></li><li><b>Slide</b><span>Press ↓ or S, or tap SLIDE. Crouch under hanging banners marked ↓. Banners appear after 240 points.</span></li><li><b>Collect &amp; score</b><span>Earn 24 points each second and 10 per flag. Chain flags within 4 seconds for streak bonuses up to 20 points. The street gets faster as your score grows.</span></li><li><b>Pause</b><span>Press P or Esc, or use Ⅱ. Switching away from the game pauses your run automatically.</span></li></ol><button class="button button-primary full" data-close="help-dialog">GOT IT <span>→</span></button></div></dialog>
 
   <dialog id="settings-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="settings-dialog" aria-label="Close settings">×</button><p class="eyebrow">MAKE IT YOUR RUN</p><h2>Settings.</h2><label class="setting-row"><span><b>Sound effects</b><small>Jumps, flags, and game-over sounds</small></span><input id="setting-sound" type="checkbox" role="switch"></label><label class="setting-row"><span><b>Arcade music</b><small>The original synthesized game soundtrack</small></span><input id="setting-music" type="checkbox" role="switch"></label><label class="setting-row"><span><b>Reduced motion</b><small>Less background motion and no particles</small></span><input id="setting-motion" type="checkbox" role="switch"></label><p class="modal-note">Preferences are saved on this browser. Music plays during your run.</p><button class="button button-primary full" data-close="settings-dialog">DONE <span>✓</span></button></div></dialog>
   <p class="sr-only" id="announcement" aria-live="polite"></p>
@@ -99,6 +117,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
   function reset() {
     state = { mode: 'home', score: 0, flags: 0, speed: RULES.initialSpeed,
       frame: 0, worldDistance: 0, elapsed: 0, spawn: 0.72, flagSpawn: 1.1,
+      combo: 0, comboTimer: 0, lastFlagBonus: 0, lastFlagPoints: RULES.flagPoints,
       obstacles: [], collectibles: [], particles: [],
       player: { x: 205, y: RULES.ground - 78, w: 54, h: 78, vy: 0,
         onGround: true, slide: 0, jumpBuffer: 0 } };
@@ -111,13 +130,16 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     if (p.onGround && p.slide <= 0) launchJump();
   }
   function launchJump() {
-    Object.assign(state.player, { vy: RULES.jumpVelocity, onGround: false, jumpBuffer: 0 });
+    const p = state.player;
+    Object.assign(p, { vy: RULES.jumpVelocity, onGround: false, jumpBuffer: 0 });
+    burst(p.x + 25, RULES.ground - 2, { count: 5, horizontal: 90, lift: 55, size: 3, colors: ['#d7c4a5', '#fff0d5'] });
     onEvent('jump', state);
   }
   function slide() {
     if (state.mode === 'running' && state.player.onGround) {
       state.player.slide = RULES.slideSeconds;
       state.player.jumpBuffer = 0;
+      burst(state.player.x + 25, RULES.ground - 2, { count: 5, horizontal: 130, lift: 45, size: 3, colors: ['#d7c4a5', '#fff0d5'] });
       onEvent('slide', state);
     }
   }
@@ -133,9 +155,14 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
   function end() {
     state.mode = 'over'; state.player.jumpBuffer = 0; onEvent('over', state);
   }
-  function burst(x, y) {
-    for (let i = 0; i < 10; i++) state.particles.push({ x, y,
-      vx: (random() - 0.5) * 220, vy: -random() * 200 - 55, life: 0.45, c: i % 2 ? '#ffdc80' : '#ff3945' });
+  function burst(x, y, { count = 14, horizontal = 250, lift = 215, size = 4, life = 0.5,
+    colors = ['#ffdc80', '#ff3945'] } = {}) {
+    for (let i = 0; i < count; i++) {
+      const maxLife = life * (0.72 + random() * 0.56);
+      state.particles.push({ x, y, vx: (random() - 0.5) * horizontal,
+        vy: -random() * lift - 35, life: maxLife, maxLife,
+        size: size * (0.7 + random() * 0.7), c: colors[i % colors.length] });
+    }
   }
   function step(dt) {
     if (state.mode !== 'running' || !Number.isFinite(dt) || dt <= 0) return;
@@ -143,6 +170,8 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     dt = Math.min(dt, 1 / 60);
     const s = state, p = s.player;
     s.elapsed += dt; s.frame += dt * 60; s.score += dt * RULES.pointsPerSecond;
+    s.comboTimer = Math.max(0, s.comboTimer - dt);
+    if (s.comboTimer === 0) s.combo = 0;
     s.speed = Math.min(RULES.maximumSpeed, RULES.initialSpeed + s.score * 0.035);
     s.worldDistance += s.speed * dt;
     s.spawn -= dt;
@@ -161,7 +190,9 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     if (!p.onGround) {
       p.vy += RULES.gravity * dt; p.y += p.vy * dt;
       if (p.y >= RULES.ground - p.h) {
-        p.y = RULES.ground - p.h; p.vy = 0; p.onGround = true;
+        p.y = RULES.ground - p.h;
+        if (p.vy > 100) burst(p.x + 25, RULES.ground - 2, { count: 7, horizontal: 150, lift: 50, size: 3, colors: ['#d7c4a5', '#fff0d5'] });
+        p.vy = 0; p.onGround = true;
       }
     }
     if (p.onGround && p.slide <= 0 && p.jumpBuffer > 0) launchJump();
@@ -177,11 +208,19 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       const c = s.collectibles[i];
       if (Math.abs(box.x + box.w / 2 - (c.x + 15)) < 34 &&
           Math.abs(box.y + box.h / 2 - (RULES.ground - 92)) < 60) {
-        s.collectibles.splice(i, 1); s.flags++; s.score += RULES.flagPoints;
-        burst(c.x, RULES.ground - 100); onEvent('flag', s);
+        s.collectibles.splice(i, 1); s.flags++;
+        s.combo++; s.comboTimer = 4;
+        s.lastFlagBonus = Math.min(20, (s.combo - 1) * 5);
+        s.lastFlagPoints = RULES.flagPoints + s.lastFlagBonus;
+        s.score += s.lastFlagPoints;
+        burst(c.x + 15, RULES.ground - 96, { count: 18, horizontal: 310, lift: 260, size: 4.5, life: 0.62 });
+        onEvent('flag', s);
       }
     }
-    for (const p of s.particles) { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 720 * dt; p.life -= dt; }
+    for (const particle of s.particles) {
+      particle.x += particle.vx * dt; particle.y += particle.vy * dt;
+      particle.vy += 720 * dt; particle.life -= dt;
+    }
     s.particles = s.particles.filter(p => p.life > 0);
   }
   reset();
@@ -471,9 +510,21 @@ function drawBanner(o) {
  text('SLIDE', o.x + o.w / 2, y + 27, 14, '#fff0d1', 'center');
  text('↓', o.x + o.w / 2, y + 53, 27, '#fff0d1', 'center');
 }
+function drawSpeedLines(speed, reducedMotion) {
+ if (speed < 455 || reducedMotion) return;
+ const intensity = Math.min(1, (speed - 455) / 195);
+ ctx.save();
+ ctx.globalAlpha = intensity * .22;
+ for (let i = 0; i < 9; i++) {
+   const y = 82 + ((i * 43 + worldDistance * .09) % 285);
+   const x = 960 - ((worldDistance * (0.7 + i * .025) + i * 113) % 1120);
+   line(x, y, x + 28 + intensity * 38, y, '#fff3d8', 1 + intensity);
+ }
+ ctx.restore();
+}
 function draw(state, reducedMotion = false) {
  player = state.player; frame = state.frame; worldDistance = reducedMotion ? 0 : state.worldDistance;
- drawSky(); drawGround();
+ drawSky(); drawGround(); drawSpeedLines(state.speed, reducedMotion);
  rect(790,300,145,36,'#d8a45e');rect(796,306,133,24,'#f4cf8c');text('JANTAR MANTAR',862,322,13,'#673a2d','center');
  state.collectibles.forEach(c => {
    const bob = reducedMotion ? 0 : Math.sin((frame + c.x) * .08) * 4;
@@ -483,8 +534,10 @@ function draw(state, reducedMotion = false) {
  });
  state.obstacles.forEach(o => o.type === 'banner' ? drawBanner(o) : o.type === 'cone' ? drawCone(o) : o.type === 'police' ? drawPolice(o) : drawBarricade(o));
  if (state.mode !== 'home') drawPlayer();
- if (!reducedMotion) state.particles.forEach(p => {
-   ctx.globalAlpha = Math.max(0, Math.min(1, p.life / .45)); rect(p.x,p.y,4,4,p.c);
+ if (!reducedMotion) state.particles.forEach(particle => {
+   ctx.globalAlpha = Math.max(0, Math.min(1, particle.life / (particle.maxLife || .5)));
+   const size = particle.size || 4;
+   rect(particle.x, particle.y, size, size, particle.c);
  });
  ctx.globalAlpha = 1;
 }
@@ -522,6 +575,8 @@ function renderFrame(timestamp) {
 function updateStats() {
   const s = game.state;
   $('score').textContent = formatScore(s.score); $('best').textContent = formatScore(best); $('flags').textContent = s.flags;
+  $('streak').textContent = s.combo > 0 ? String(s.combo) + '× +' + Math.min(20, (s.combo - 1) * 5) : '—';
+  $('streak-card').classList.toggle('is-active', s.combo > 0);
   $('pace').textContent = s.mode === 'running' ? `${(s.speed / 330).toFixed(2)}× PACE` : s.mode === 'paused' ? 'PAUSED' : s.mode === 'over' ? 'RUN COMPLETE' : 'READY TO RUN';
   $('pause').disabled = s.mode !== 'running';
   $('jump').disabled = $('slide').disabled = s.mode !== 'running';
@@ -551,7 +606,7 @@ function setSetting(key, value) {
 function onEvent(event, state) {
   if (event === 'start' || event === 'resume') {
     closeDialogs(); clock?.reset();
-    $('home-screen').hidden = true; $('stage').classList.remove('is-home'); $('scene-label').hidden = false;
+    $('home-screen').hidden = true; $('stage').classList.remove('is-home', 'impact'); $('stage').classList.add('is-running'); $('scene-label').hidden = false;
     $('run-status').textContent = '↑ Jump obstacles · ↓ Slide under banners';
     if (settings.sound || settings.music) audio.unlock();
     if (settings.music) audio.play();
@@ -559,9 +614,12 @@ function onEvent(event, state) {
     $('game').focus({ preventScroll: true });
     announce(event === 'start' ? 'Run started.' : 'Run resumed.');
   } else if (event === 'pause') {
+    $('stage').classList.remove('is-running');
     audio.stop(); clock?.reset(); showDialog('pause-dialog');
     $('run-status').textContent = 'Your run is paused.'; announce('Run paused.');
   } else if (event === 'over') {
+    $('stage').classList.remove('is-running'); $('stage').classList.remove('impact');
+    if (!settings.reducedMotion) { void $('stage').offsetWidth; $('stage').classList.add('impact'); }
     audio.stop();
     if (settings.sound) audio.beep(120, 0.2);
     const finalScore = Math.floor(state.score), record = finalScore > best;
@@ -577,16 +635,22 @@ function onEvent(event, state) {
     announce(`Run complete. Score ${finalScore}. ${state.flags} flags collected.${record ? ' New personal best.' : ''}`);
   } else if (event === 'home') {
     audio.stop(); clock?.reset(); closeDialogs();
-    $('home-screen').hidden = false; $('stage').classList.add('is-home'); $('scene-label').hidden = true;
+    $('home-screen').hidden = false; $('stage').classList.remove('is-running', 'impact'); $('stage').classList.add('is-home'); $('scene-label').hidden = true;
     $('run-status').innerHTML = '<span class="tiny-star">★</span> Ready when you are.';
     $('start').focus({ preventScroll: true });
   } else if (event === 'jump' && settings.sound) audio.beep(360);
   else if (event === 'flag') {
-    if (settings.sound) audio.beep(760);
-    const feedback = $('feedback'); feedback.textContent = '+10 ⚑';
+    const points = state.lastFlagPoints || RULES.flagPoints;
+    const combo = state.combo || 0;
+    if (settings.sound) audio.beep(combo > 1 ? 760 + Math.min(combo, 5) * 55 : 760);
+    const feedback = $('feedback');
+    feedback.textContent = combo > 1 ? String(combo) + '× STREAK +' + points : '+' + points + ' ⚑';
+    feedback.classList.remove('pop', 'combo-pop');
     if (!settings.reducedMotion) {
-      feedback.classList.remove('pop'); void feedback.offsetWidth; feedback.classList.add('pop');
+      void feedback.offsetWidth;
+      feedback.classList.add(combo > 1 ? 'combo-pop' : 'pop');
     }
+    if (combo === 3 || combo === 5) announce(String(combo) + ' flags in a row. ' + points + ' points for that flag.');
   }
   updateStats(); requestRender();
 }
@@ -678,3 +742,4 @@ try {
 })();</script>
 </body>
 </html>
+
