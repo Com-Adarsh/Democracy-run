@@ -114,6 +114,40 @@ h1>span{color:#ed1833}
 .home-copy>h1{animation:poster-enter .58s .1s both cubic-bezier(.2,.75,.25,1)}
 .home-copy>.home-description{animation:poster-enter .52s .18s both cubic-bezier(.2,.75,.25,1)}
 .home-copy>.home-buttons{animation:poster-enter .5s .25s both cubic-bezier(.2,.75,.25,1)}
+.community-tools{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0 4px}
+.community-button{display:flex;align-items:center;gap:15px;min-height:75px;padding:14px 18px;text-align:left;background:#121013;border:1px solid #4b252e;border-radius:10px;color:#fff;box-shadow:inset 3px 0 #ed1833}
+.community-button:hover{background:#211116;border-color:#ffd400;transform:translateY(-2px)}
+.community-index{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border:1px solid #ed1833;border-radius:50%;font:700 10px ui-monospace,monospace;color:#ffd400}
+.community-button>span:nth-child(2){font-size:11px;font-weight:900;letter-spacing:1px}
+.community-button small{display:block;margin-top:6px;color:#b8b8be;font-size:8px;letter-spacing:1px}
+.community-button>b{margin-left:auto;color:#ffd400;font-size:18px}
+.leaderboard-dialog{width:min(650px,calc(100vw - 28px))}
+.leaderboard-dialog[open] .modal-content,.thoughts-dialog[open] .modal-content{animation:community-arrive .34s cubic-bezier(.18,.82,.25,1) both}
+@keyframes community-arrive{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.leaderboard-content{padding:36px}
+.callsign-label{display:block;margin:22px 0 8px;color:#ffd400;font-size:9px;font-weight:800;letter-spacing:1.2px}
+.callsign-input{width:100%;padding:12px 13px;border:1px solid #51444a;border-radius:7px;background:#100e10;color:#fff;font-size:13px}
+.callsign-input::placeholder{color:#8f8b91}
+.relay-card{margin:18px 0 22px;padding:17px;border:1px solid #5a3333;border-radius:9px;background:linear-gradient(110deg,#211116,#111014)}
+.relay-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;color:#d0d0d5;font-size:9px;font-weight:800;letter-spacing:1px}
+.relay-heading strong{color:#ffd400;font:700 17px ui-monospace,monospace;letter-spacing:0}
+.relay-track{height:9px;margin-top:13px;border-radius:99px;background:#080709;border:1px solid #51444a;overflow:hidden}
+.relay-track>span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ed1833,#ffd400);transition:width .55s ease}
+.relay-card p{margin:9px 0 0!important;color:#c4c0c5!important;font-size:10px!important}
+.leaderboard-heading,.leaderboard-list li{display:grid;grid-template-columns:minmax(110px,1.5fr) .7fr .7fr .9fr;align-items:center;gap:10px}
+.leaderboard-heading{padding:0 12px 9px;color:#aaa6ad;font-size:8px;font-weight:800;letter-spacing:.9px}
+.leaderboard-list{list-style:none;padding:0;margin:0;max-height:245px;overflow:auto}
+.leaderboard-list li{padding:12px;border-top:1px solid #372b30;color:#f5f1e9;font:700 11px ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.leaderboard-list li.top-three{color:#ffd400;background:linear-gradient(90deg,#ffd40012,transparent)}
+.leaderboard-list li>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.leaderboard-empty{padding:22px 12px!important;color:#aaa6ad!important;font:11px Arial,Helvetica,sans-serif!important}
+.thought-options{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:20px 0}
+.thought-option{min-height:54px;padding:12px;text-align:left;border:1px solid #51444a;border-radius:7px;background:#100e10;color:#fff;font-size:10px;font-weight:800;letter-spacing:.45px}
+.thought-option:hover,.thought-option[aria-pressed=true]{border-color:#ffd400;color:#ffd400;background:#24161a}
+.result-thought{padding:13px 14px;border-left:3px solid #ffd400;background:#211116;color:#fff!important;font-size:12px!important;font-weight:900;letter-spacing:.7px}
+.result-metrics{margin:10px 0!important;color:#c7c3c8!important;font-size:10px!important;letter-spacing:.8px}
+@media(max-width:600px){.community-tools{gap:8px}.community-button{gap:9px;padding:12px 9px;min-height:68px}.community-index{flex-basis:27px;width:27px;height:27px;font-size:8px}.community-button>span:nth-child(2){font-size:9px}.community-button small{font-size:7px;letter-spacing:.5px}.leaderboard-content{padding:28px 20px}.leaderboard-heading,.leaderboard-list li{grid-template-columns:minmax(80px,1.35fr) .65fr .65fr .8fr;gap:6px}.leaderboard-heading{padding-left:8px;padding-right:8px;font-size:6px;letter-spacing:.3px}.leaderboard-list li{padding:11px 8px;font-size:9px}.thought-options{grid-template-columns:1fr}}
+@media(max-width:360px){.community-button{font-size:8px}.community-button small{font-size:6px}.community-button>b{font-size:14px}}
 ::selection{background:#ffd400;color:#09090b}
 /* Black, deep red, yellow, and white: the Tiranga stays in the environment. */
 :root{--paper:#09090b;--ink:#fff;--muted:#c0c0c6;--red:#ed1833;--red-dark:#9f1023;--line:#373237;--navy:#09090b;--cream:#fff;color-scheme:dark;background:#09090b;color:#fff}
@@ -209,12 +243,15 @@ h1{color:#fff}h1>span{color:#ed1833}
         <div class="game-toolbar"><span id="run-status"><span class="tiny-star">★</span> Ready when you are.</span><div class="audio-controls"><button id="sound" aria-pressed="false">SFX <span>OFF</span></button><button id="music" aria-pressed="false">MUSIC <span>OFF</span></button></div></div>
       </div>
 
+      <div class="community-tools" aria-label="Community features"><button id="open-leaderboard" class="community-button"><span class="community-index">01</span><span>THE VANGUARD<small>LOCAL LEADERBOARD</small></span><b aria-hidden="true">↗</b></button><button id="open-thoughts" class="community-button"><span class="community-index">02</span><span>LEAVE A THOUGHT<small id="thought-preview">VOICES MAKE A DEMOCRACY</small></span><b aria-hidden="true">↗</b></button></div>
       <div class="touch-controls" aria-label="Touch game controls"><button id="jump" class="touch-button"><span aria-hidden="true">↑</span><span>JUMP<small>Clear the obstacles</small></span></button><button id="slide" class="touch-button"><span aria-hidden="true">↓</span><span>SLIDE<small>Get under banners</small></span></button></div>
 
       <section class="playbook" aria-label="Quick controls"><article><span class="control-key">↑</span><div><h2>Rise above.</h2><p><kbd>Space</kbd> or <kbd>↑</kbd> to jump</p></div><span class="step-number">01</span></article><article><span class="control-key">↓</span><div><h2>Stay quick.</h2><p><kbd>↓</kbd> to slide under banners</p></div><span class="step-number">02</span></article><article><span class="control-key flag-key">⚑</span><div><h2>Carry it forward.</h2><p>10 base · streak bonus up to <b>+20</b></p></div><span class="step-number">03</span></article></section>
       <p class="storage-note" id="storage-note">Your best score stays on this browser. Play on mobile or desktop.</p>
       <noscript><p class="error-message">Enable JavaScript to play The Democracy Run.</p></noscript>
       <p id="load-error" class="error-message" hidden></p>
+      <dialog id="leaderboard-dialog" class="modal leaderboard-dialog"><div class="modal-content leaderboard-content"><button class="modal-close" data-close="leaderboard-dialog" aria-label="Close leaderboard">×</button><p class="eyebrow">THE VANGUARD · THIS BROWSER</p><h2>March of<br><span>the brave.</span></h2><label class="callsign-label" for="leaderboard-name">YOUR CALLSIGN</label><input id="leaderboard-name" class="callsign-input" maxlength="18" autocomplete="nickname" placeholder="Street runner"><section class="relay-card" aria-labelledby="relay-title"><div class="relay-heading"><span id="relay-title">LOCAL DISTANCE RELAY</span><strong id="relay-distance">0 m</strong></div><div class="relay-track" role="progressbar" id="relay-progress" aria-label="Local distance toward 5,000 kilometer goal" aria-valuemin="0" aria-valuemax="5000000" aria-valuenow="0"><span id="relay-fill"></span></div><p id="relay-caption">Together on this browser: 0 m of 5,000 km.</p></section><div class="leaderboard-heading"><span>RUNNER</span><span>METERS</span><span>SCORE</span><span>BLOCKADES</span></div><ol id="leaderboard-list" class="leaderboard-list" aria-live="polite"></ol><p class="modal-note">Scores and relay distance are stored on this device; they are not shared globally yet.</p><button class="button button-primary full" data-close="leaderboard-dialog">BACK TO THE RUN <span>→</span></button></div></dialog>
+      <dialog id="thoughts-dialog" class="modal thoughts-dialog"><div class="modal-content"><button class="modal-close" data-close="thoughts-dialog" aria-label="Close thoughts">×</button><p class="eyebrow">ECHOES OF JANTAR MANTAR</p><h2>Choose a<br><span>thought.</span></h2><p>Your message appears as a painted mural during the run and returns on your finish card.</p><div class="thought-options" role="group" aria-label="Choose a protest thought"><button class="thought-option" data-thought="0">JOBS WITH DIGNITY</button><button class="thought-option" data-thought="1">EQUALITY FOR EVERY VOICE</button><button class="thought-option" data-thought="2">EDUCATION IS A RIGHT</button><button class="thought-option" data-thought="3">PEACEFUL ASSEMBLY MATTERS</button><button class="thought-option" data-thought="4">JUSTICE BELONGS TO ALL</button></div><p class="modal-note">These are community prompts, not attributed quotations.</p><button class="button button-primary full" data-close="thoughts-dialog">CARRY IT FORWARD <span>→</span></button></div></dialog>
     </main>
     <footer><span>SFI CUSAT SAMSKARA <span class="footer-star">★</span> THE DEMOCRACY RUN</span><span>Small game. Endless determination.</span></footer>
   </div>
@@ -273,7 +310,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       recycleAll(state.collectibles, collectiblePool);
       recycleAll(state.particles, particlePool);
     }
-    state = { mode: 'home', score: 0, flags: 0, speed: RULES.initialSpeed,
+    state = { mode: 'home', score: 0, flags: 0, barricades: 0, speed: RULES.initialSpeed,
       frame: 0, worldDistance: 0, elapsed: 0, spawn: 0.72, flagSpawn: 1.1,
       combo: 0, comboTimer: 0, lastFlagBonus: 0, lastFlagPoints: RULES.flagPoints,
       obstacles: [], collectibles: [], particles: [],
@@ -392,6 +429,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       const bounds = obstacleBounds(obstacle);
       if (bounds.x + bounds.w >= box.x) continue;
       obstacle.passed = true;
+      if (obstacle.type === 'police' || obstacle.type === 'barrier') s.barricades++;
       const verticalGap = Math.max(0, Math.max(box.y - (bounds.y + bounds.h), bounds.y - (box.y + box.h)));
       if (verticalGap < 18) {
         s.score += 15; s.lastNearMissBonus = 15;
@@ -467,6 +505,29 @@ const SPRITES = {
 };
 
 const SETTINGS_KEY = 'rjm-settings-v2';
+const COMMUNITY_KEY = 'rjm-community-v1';
+const CALLSIGN_KEY = 'rjm-callsign-v1';
+const THOUGHT_KEY = 'rjm-thought-v1';
+const RELAY_GOAL_METERS = 5000000;
+const THOUGHTS = Object.freeze([
+  'JOBS WITH DIGNITY', 'EQUALITY FOR EVERY VOICE', 'EDUCATION IS A RIGHT',
+  'PEACEFUL ASSEMBLY MATTERS', 'JUSTICE BELONGS TO ALL'
+]);
+function readCommunity(storage) {
+  try {
+    const saved = JSON.parse(storage?.getItem(COMMUNITY_KEY) || '{}');
+    const runs = Array.isArray(saved.runs) ? saved.runs.filter(run => run &&
+      Number.isFinite(run.score) && Number.isFinite(run.meters) && Number.isFinite(run.blockades) &&
+      typeof run.name === 'string').slice(0, 10) : [];
+    return { totalMeters: Number.isFinite(saved.totalMeters) && saved.totalMeters > 0 ? Math.floor(saved.totalMeters) : 0, runs };
+  } catch { return { totalMeters: 0, runs: [] }; }
+}
+function writeCommunity(storage, community) {
+  try { storage?.setItem(COMMUNITY_KEY, JSON.stringify(community)); return Boolean(storage); } catch { return false; }
+}
+function readText(storage, key, fallback) {
+  try { const value = storage?.getItem(key); return typeof value === 'string' ? value : fallback; } catch { return fallback; }
+}
 function readBest(storage) {
   try { const n = Number(storage?.getItem('rjm-best')); return Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0; }
   catch { return 0; }
@@ -538,11 +599,12 @@ function createAudio() {
 
 
 // Retains the original Delhi skyline, obstacle art, and all 17 runner frames.
-function createRenderer(canvas) {
+function createRenderer(canvas, initialThought = THOUGHTS[0]) {
 const ctx = canvas.getContext('2d');
 if (!ctx) throw new Error('Your browser could not start the game canvas.');
 const ground = RULES.ground;
 let player, frame = 0, worldDistance = 0;
+let muralText = initialThought;
 let sceneTime = 0, sceneSpeed = RULES.initialSpeed, flagResponse = 0, visualReducedMotion = false;
 const makeSprites = sources => sources.map(src => { const image = new Image(); image.src = src; return image; });
 const runSprites = makeSprites(SPRITES.run), jumpSprites = makeSprites(SPRITES.jump), slideSprites = makeSprites(SPRITES.slide);
@@ -739,6 +801,16 @@ function drawSky(){
  ctx.beginPath();ctx.moveTo(685,240);ctx.lineTo(698,157);ctx.lineTo(720,157);ctx.lineTo(728,119);ctx.lineTo(792,119);ctx.lineTo(800,157);ctx.lineTo(821,157);ctx.lineTo(835,240);ctx.closePath();ctx.fill();
    rect(680,235,160,9,mixColor('#55131e','#350b14',dusk));rect(710,160,100,5,'#ffd400');
    ctx.fillStyle='#09090b';ctx.beginPath();ctx.moveTo(739,240);ctx.lineTo(744,185);ctx.quadraticCurveTo(760,168,776,185);ctx.lineTo(781,240);ctx.closePath();ctx.fill();
+ // Protest thoughts appear as a hand-painted message across the deep-red city layer.
+ const muralOffset = 70 - (worldDistance * .09 % 440);
+ for (let mural = 0; mural < 3; mural++) {
+   const x = muralOffset + mural * 440;
+   rect(x, 286, 204, 29, '#10090d');
+   rect(x, 286, 204, 3, '#ed1833');
+   ctx.save(); ctx.globalAlpha = .84; ctx.translate(x + 7, 305); ctx.rotate(-.025);
+   ctx.font = '900 11px Arial,Helvetica,sans-serif'; ctx.textAlign = 'left'; ctx.fillStyle = '#ffd400';
+   ctx.fillText(muralText, 0, 0, 190); ctx.restore();
+ }
  // Trees with rounded canopies and gentle parallax.
  for(let i=0;i<18;i++){
    const x=((i*65-worldDistance*.19)%1120+1120)%1120-60;
@@ -918,7 +990,7 @@ function draw(state, reducedMotion = false, shakeX = 0, shakeY = 0) {
  ctx.globalAlpha = 1;
   ctx.restore();
 }
-return { draw, resize, ready, get missingSprites() { return allSprites.filter(im => !im.naturalWidth).length; } };
+return { draw, resize, ready, setThought(value) { muralText = value; }, get missingSprites() { return allSprites.filter(im => !im.naturalWidth).length; } };
 }
 
 
@@ -930,11 +1002,68 @@ let storage;
 try { storage = window.localStorage; } catch { storage = null; }
 let best = readBest(storage);
 const settings = readSettings(storage, window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+let community = readCommunity(storage);
+let selectedThoughtIndex = Number(readText(storage, THOUGHT_KEY, '0'));
+if (!Number.isInteger(selectedThoughtIndex) || selectedThoughtIndex < 0 || selectedThoughtIndex >= THOUGHTS.length) selectedThoughtIndex = 0;
+let selectedThought = THOUGHTS[selectedThoughtIndex];
+let runnerName = readText(storage, CALLSIGN_KEY, '').slice(0, 18);
 const audio = createAudio();
 let renderer, clock, raf = 0, utilityFocus = null, impactAt = -Infinity, impactFrameDrawn = false;
 const game = createGame({ onEvent });
 
 function announce(message) { $('announcement').textContent = message; }
+function formatMeters(value) { return Math.floor(value).toLocaleString() + ' m'; }
+function renderLeaderboard() {
+  const list = $('leaderboard-list');
+  if (!list) return;
+  list.replaceChildren();
+  $('leaderboard-name').value = runnerName;
+  const progress = Math.min(100, community.totalMeters / RELAY_GOAL_METERS * 100);
+  $('relay-distance').textContent = formatMeters(community.totalMeters);
+  $('relay-caption').textContent = 'Together on this browser: ' + formatMeters(community.totalMeters) + ' of 5,000 km.';
+  $('relay-progress').setAttribute('aria-valuenow', String(Math.min(RELAY_GOAL_METERS, community.totalMeters)));
+  $('relay-fill').style.width = progress + '%';
+  if (!community.runs.length) {
+    const empty = document.createElement('li'); empty.className = 'leaderboard-empty';
+    empty.textContent = 'Your first completed run will start the march.'; list.append(empty); return;
+  }
+  community.runs.forEach((run, index) => {
+    const row = document.createElement('li'); if (index < 3) row.classList.add('top-three');
+    for (const value of [run.name, formatMeters(run.meters), formatScore(run.score), String(run.blockades)]) {
+      const cell = document.createElement('span'); cell.textContent = value; row.append(cell);
+    }
+    list.append(row);
+  });
+}
+function renderThoughtSelection() {
+  $('thought-preview').textContent = selectedThought;
+  document.querySelectorAll('[data-thought]').forEach(button => {
+    const chosen = Number(button.dataset.thought) === selectedThoughtIndex;
+    button.setAttribute('aria-pressed', String(chosen));
+  });
+  renderer?.setThought(selectedThought);
+}
+function updateResultExtras(state) {
+  document.querySelectorAll('.result-community').forEach(node => node.remove());
+  const extras = document.createElement('div'); extras.className = 'result-community';
+  const metrics = document.createElement('p'); metrics.className = 'result-metrics';
+  metrics.textContent = 'DISTANCE ' + formatMeters(Math.floor(state.worldDistance / 100)) + ' · BLOCKADES PASSED ' + state.barricades;
+  const thought = document.createElement('p'); thought.className = 'result-thought';
+  thought.textContent = 'ECHOES OF JANTAR MANTAR · “' + selectedThought + '”';
+  extras.append(metrics, thought);
+  $('retry').before(extras);
+}
+function recordCommunityRun(state) {
+  const meters = Math.floor(state.worldDistance / 100);
+  runnerName = ($('leaderboard-name')?.value || runnerName || 'Street runner').trim().slice(0, 18) || 'Street runner';
+  try { storage?.setItem(CALLSIGN_KEY, runnerName); } catch { /* The current session can still record runs. */ }
+  community.totalMeters += meters;
+  community.runs.push({ name: runnerName, meters, score: Math.floor(state.score), blockades: state.barricades, at: Date.now() });
+  community.runs.sort((a, b) => b.score - a.score || b.meters - a.meters || b.blockades - a.blockades);
+  community.runs = community.runs.slice(0, 10);
+  if (!writeCommunity(storage, community)) $('storage-note').textContent = 'Browser storage is unavailable. Community scores stay for this session only.';
+  renderLeaderboard(); updateResultExtras(state);
+}
 function closeDialogs() { document.querySelectorAll('dialog[open]').forEach(dialog => dialog.close()); }
 function showDialog(id) {
   closeDialogs();
@@ -1011,6 +1140,7 @@ function onEvent(event, state) {
   } else if (event === 'over') {
     $('stage').classList.remove('is-running', 'near-miss', 'impact');
     impactAt = settings.reducedMotion ? -Infinity : performance.now(); impactFrameDrawn = false;
+    recordCommunityRun(state);
     audio.stop();
     if (settings.sound) audio.beep(120, 0.2);
     const finalScore = Math.floor(state.score), record = finalScore > best;
@@ -1024,7 +1154,7 @@ function onEvent(event, state) {
     $('run-status').textContent = record ? '★ New personal best. Nicely done.' : 'Every run is a fresh start.';
     if (settings.reducedMotion) showDialog('over-dialog');
     else window.setTimeout(() => { if (game.state.mode === 'over') showDialog('over-dialog'); }, 400);
-    announce(`Run complete. Score ${finalScore}. ${state.flags} flags collected.${record ? ' New personal best.' : ''}`);
+    announce(`Run complete. Score ${finalScore}. ${state.flags} flags collected. ${Math.floor(state.worldDistance / 100)} meters marched. ${state.barricades} blockades passed.${record ? ' New personal best.' : ''}`);
   } else if (event === 'home') {
     impactAt = -Infinity; impactFrameDrawn = false;
     audio.stop(); clock?.reset(); closeDialogs();
@@ -1092,7 +1222,8 @@ async function shareScore() {
 }
 
 try {
-  renderer = createRenderer($('game')); clock = createClock(game);
+  renderer = createRenderer($('game'), selectedThought); clock = createClock(game);
+  renderLeaderboard(); renderThoughtSelection();
   renderer.ready.then(() => {
     if (renderer.missingSprites) announce('Some artwork could not load. A fallback character is available.');
     requestRender();
@@ -1107,8 +1238,21 @@ try {
   $('share').addEventListener('click', shareScore);
   $('instructions').addEventListener('click', () => openUtility('help-dialog'));
   $('settings').addEventListener('click', () => openUtility('settings-dialog'));
+  $('open-leaderboard').addEventListener('click', () => { renderLeaderboard(); openUtility('leaderboard-dialog'); });
+  $('open-thoughts').addEventListener('click', () => { renderThoughtSelection(); openUtility('thoughts-dialog'); });
+  $('leaderboard-name').addEventListener('input', event => {
+    runnerName = event.target.value.slice(0, 18);
+    try { storage?.setItem(CALLSIGN_KEY, runnerName); } catch { /* Name remains available for this session. */ }
+  });
+  document.querySelectorAll('[data-thought]').forEach(button => button.addEventListener('click', () => {
+    selectedThoughtIndex = Number(button.dataset.thought);
+    selectedThought = THOUGHTS[selectedThoughtIndex];
+    try { storage?.setItem(THOUGHT_KEY, String(selectedThoughtIndex)); } catch { /* Thought remains selected for this session. */ }
+    renderThoughtSelection(); announce('Thought selected: ' + selectedThought + '.');
+    closeUtility('thoughts-dialog');
+  }));
   document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', () => closeUtility(button.dataset.close)));
-  ['help-dialog', 'settings-dialog'].forEach(id => $(id).addEventListener('cancel', event => { event.preventDefault(); closeUtility(id); }));
+  ['help-dialog', 'settings-dialog', 'leaderboard-dialog', 'thoughts-dialog'].forEach(id => $(id).addEventListener('cancel', event => { event.preventDefault(); closeUtility(id); }));
   $('pause-dialog').addEventListener('cancel', event => { event.preventDefault(); game.resume(); });
   $('over-dialog').addEventListener('cancel', event => { event.preventDefault(); game.home(); });
   $('sound').addEventListener('click', () => setSetting('sound', !settings.sound));
