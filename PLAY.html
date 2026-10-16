@@ -191,7 +191,10 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       p.vy += RULES.gravity * dt; p.y += p.vy * dt;
       if (p.y >= RULES.ground - p.h) {
         p.y = RULES.ground - p.h;
-        if (p.vy > 100) burst(p.x + 25, RULES.ground - 2, { count: 7, horizontal: 150, lift: 50, size: 3, colors: ['#d7c4a5', '#fff0d5'] });
+        if (p.vy > 100) {
+          burst(p.x + 25, RULES.ground - 2, { count: 7, horizontal: 150, lift: 50, size: 3, colors: ['#d7c4a5', '#fff0d5'] });
+          onEvent('land', s);
+        }
         p.vy = 0; p.onGround = true;
       }
     }
@@ -203,6 +206,14 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     const box = playerBounds(p);
     for (const obstacle of s.obstacles) {
       if (intersects(box, obstacleBounds(obstacle))) { end(); return; }
+    }
+    for (const obstacle of s.obstacles) {
+      if (obstacle.passed) continue;
+      const bounds = obstacleBounds(obstacle);
+      if (bounds.x + bounds.w >= box.x) continue;
+      obstacle.passed = true;
+      const verticalGap = Math.max(0, Math.max(box.y - (bounds.y + bounds.h), bounds.y - (box.y + box.h)));
+      onEvent(verticalGap < 18 ? 'near-miss' : 'clear', s);
     }
     for (let i = s.collectibles.length - 1; i >= 0; i--) {
       const c = s.collectibles[i];
@@ -348,6 +359,7 @@ const ctx = canvas.getContext('2d');
 if (!ctx) throw new Error('Your browser could not start the game canvas.');
 const ground = RULES.ground;
 let player, frame = 0, worldDistance = 0;
+let sceneTime = 0, sceneSpeed = RULES.initialSpeed, flagResponse = 0, visualReducedMotion = false;
 const makeSprites = sources => sources.map(src => { const image = new Image(); image.src = src; return image; });
 const runSprites = makeSprites(SPRITES.run), jumpSprites = makeSprites(SPRITES.jump), slideSprites = makeSprites(SPRITES.slide);
 const allSprites = [...runSprites, ...jumpSprites, ...slideSprites];
@@ -363,6 +375,112 @@ resize();
 function rect(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}
 function line(x1,y1,x2,y2,c,w=1){ctx.strokeStyle=c;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
 function text(t,x,y,size,color='#fff',align='left'){ctx.font=`900 ${size}px monospace`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(t,x,y)}
+function drawWavingPennant(x, y, w, h, phase, response = 0) {
+ const slices = 8;
+ const speed = Math.max(0, Math.min(1, (sceneSpeed - RULES.initialSpeed) / (RULES.maximumSpeed - RULES.initialSpeed)));
+ const amplitude = visualReducedMotion ? 0 : (1.1 + speed * 2.1 + response * 2.7);
+ const vertex = (u, lower) => {
+   const tipY = y + h * .47;
+   const baseY = lower ? y + h : y;
+   const edgeY = baseY + (tipY - baseY) * u;
+   const ripple = Math.sin(phase - u * 4.3 + Math.sin(phase * .31 + u * 6) * .22) * amplitude * u;
+   return { x: x + w * u, y: edgeY + ripple };
+ };
+ for (let i = 0; i < slices; i++) {
+   const a = vertex(i / slices, false), b = vertex((i + 1) / slices, false);
+   const c = vertex((i + 1) / slices, true), d = vertex(i / slices, true);
+   ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.lineTo(d.x, d.y); ctx.closePath();
+   ctx.fillStyle = i % 3 === 1 ? '#e93442' : '#f12f43'; ctx.fill();
+   if (i === 2 || i === 5) { ctx.strokeStyle = '#ff9da055'; ctx.lineWidth = .8; ctx.stroke(); }
+ }
+ const top = vertex(.48, false), bottom = vertex(.48, true);
+ const cx = x + w * .48, cy = (top.y + bottom.y) / 2;
+ ctx.fillStyle = '#ffdb98'; ctx.beginPath();
+ for (let i = 0; i < 10; i++) {
+   const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? h * .085 : h * .17;
+   const px = cx + Math.cos(a) * r, py = cy + Math.sin(a) * r;
+   if (!i) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+ }
+ ctx.closePath(); ctx.fill();
+}
+function lampPositions() {
+ return Array.from({ length: 5 }, (_, i) => ((i * 350 - worldDistance * .68) % 1320 + 1320) % 1320 - 130);
+}
+function drawStreetLamps() {
+ for (const x of lampPositions()) {
+   if (x < -45 || x > RULES.width + 45) continue;
+   const top = ground - 158;
+   const glow = ctx.createRadialGradient(x + 17, top + 4, 2, x + 17, top + 4, 72);
+   glow.addColorStop(0, '#ffe4a944'); glow.addColorStop(1, '#ffe4a900');
+   ctx.fillStyle = glow; ctx.fillRect(x - 55, top - 64, 145, 150);
+   line(x, ground, x + 1, top + 13, '#39464a', 4);
+   line(x + 1, top + 13, x + 18, top + 4, '#39464a', 3);
+   line(x + 18, top + 4, x + 31, top + 4, '#39464a', 3);
+   ctx.fillStyle = '#ffd98b'; ctx.beginPath(); ctx.arc(x + 28, top + 7, 4, 0, Math.PI * 2); ctx.fill();
+ }
+}
+function drawLampPools() {
+ for (const x of lampPositions()) {
+   if (x < -80 || x > RULES.width + 80) continue;
+   const pool = ctx.createRadialGradient(x + 16, ground + 30, 2, x + 16, ground + 30, 74);
+   pool.addColorStop(0, '#f6d99a24'); pool.addColorStop(.55, '#f6d99a12'); pool.addColorStop(1, '#f6d99a00');
+   ctx.fillStyle = pool; ctx.fillRect(x - 58, ground + 7, 150, 76);
+ }
+}
+function drawCarriedFlag(sprite, spriteX, spriteY, targetH, player, speed, elapsed, sliding) {
+ if (visualReducedMotion) return;
+ const sw = sprite.naturalWidth, sh = sprite.naturalHeight, scale = targetH / sh;
+ const map = sliding
+   ? { poleTop:[.56,.02], poleBottom:[.60,.62], freeTop:[.025,.14], freeBottom:[.08,.67] }
+   : { poleTop:[.39,.015], poleBottom:[.45,.29], freeTop:[.045,.08], freeBottom:[.055,.285] };
+ const point = pair => ({ x: spriteX + pair[0] * sw * scale, y: spriteY + pair[1] * sh * scale });
+ const pTop = point(map.poleTop), pBottom = point(map.poleBottom), fTop = point(map.freeTop), fBottom = point(map.freeBottom);
+ const path = () => { ctx.beginPath(); ctx.moveTo(pTop.x,pTop.y); ctx.lineTo(fTop.x,fTop.y); ctx.lineTo(fBottom.x,fBottom.y); ctx.lineTo(pBottom.x,pBottom.y); ctx.closePath(); };
+ ctx.save(); ctx.globalCompositeOperation = 'destination-out'; path(); ctx.fill(); ctx.restore();
+ const speedFactor = Math.max(0, Math.min(1, (speed - RULES.initialSpeed) / (RULES.maximumSpeed - RULES.initialSpeed)));
+ const jumpLift = player.vy < 0 ? Math.min(1, -player.vy / Math.abs(RULES.jumpVelocity)) : 0;
+ const slideDrop = player.slide > 0 ? Math.min(1, player.slide / RULES.slideSeconds) : 0;
+ const amplitude = (1.4 + speedFactor * 3 + jumpLift * 5 + slideDrop * 2.2) * scale;
+ const phase = elapsed * (6.4 + speedFactor * 2.2);
+ const vertex = (u, lower) => {
+   const a = lower ? pBottom : pTop, b = lower ? fBottom : fTop;
+   const ripple = Math.sin(phase - u * 4.4 + Math.sin(phase * .37 + u * 7) * .3) * amplitude * u;
+   const inputShift = (-jumpLift * sh * .045 + slideDrop * sh * .035) * scale * u;
+   return { x: a.x + (b.x - a.x) * u, y: a.y + (b.y - a.y) * u + ripple + inputShift };
+ };
+ const slices = 14;
+ for (let i = 0; i < slices; i++) {
+   const a = vertex(i / slices, false), b = vertex((i + 1) / slices, false);
+   const c = vertex((i + 1) / slices, true), d = vertex(i / slices, true);
+   ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.lineTo(c.x,c.y); ctx.lineTo(d.x,d.y); ctx.closePath();
+   ctx.fillStyle = i % 4 === 1 ? '#f7f0e2' : '#ece4d5'; ctx.fill();
+ }
+ for (const u of [.28,.63,.86]) {
+   const a = vertex(u, false), b = vertex(u, true);
+   ctx.strokeStyle = '#a99b8950'; ctx.lineWidth = .8 * scale; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+ }
+ const top = vertex(.5, false), bottom = vertex(.5, true), cx = (top.x + bottom.x) / 2, cy = (top.y + bottom.y) / 2;
+ const radius = sh * scale * (sliding ? .075 : .052);
+ ctx.fillStyle = '#e3333d'; ctx.beginPath();
+ for (let i = 0; i < 10; i++) {
+   const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? radius * .43 : radius;
+   const px = cx + Math.cos(a) * r, py = cy + Math.sin(a) * r;
+   if (!i) ctx.moveTo(px,py); else ctx.lineTo(px,py);
+ }
+ ctx.closePath(); ctx.fill();
+}
+function drawFlagTrail(x, y, scale, speed, elapsed, reducedMotion) {
+ if (reducedMotion || speed < 405) return;
+ const strength = Math.min(.22, .07 + (speed - 405) / 1500);
+ ctx.save(); ctx.globalAlpha = strength;
+ for (let i = 0; i < 3; i++) {
+   const phase = elapsed * 8 + i * 1.9, startY = y + scale * (22 + i * 9) + Math.sin(phase) * 2;
+   ctx.strokeStyle = i === 1 ? '#f5655e' : '#ffe4b1'; ctx.lineWidth = Math.max(.8, scale * (2.5 - i * .45));
+   ctx.beginPath(); ctx.moveTo(x + scale * 9, startY);
+   ctx.quadraticCurveTo(x - 11 - i * 5, startY + Math.sin(phase + 1) * 4, x - 29 - i * 7, startY + Math.cos(phase) * 5); ctx.stroke();
+ }
+ ctx.restore();
+}
 function drawSky(){
  const g=ctx.createLinearGradient(0,0,0,ground);
  g.addColorStop(0,'#4d8bd3');g.addColorStop(.52,'#f3a37f');g.addColorStop(1,'#ffe0ad');
@@ -399,21 +517,21 @@ function drawSky(){
    ctx.arc(x+2,263,21,0,Math.PI*2);ctx.arc(x-9,274,15,0,Math.PI*2);ctx.arc(x+14,275,15,0,Math.PI*2);ctx.fill();
    ctx.fillStyle='#3e8a64';ctx.beginPath();ctx.arc(x+1,250,13,0,Math.PI*2);ctx.fill();
  }
- // Protest crowd silhouettes and flags.
+ // Protest crowd silhouettes and smaller wind-blown flags.
  for(let i=0;i<88;i++){
    const x=((i*27-worldDistance*.42)%1050+1050)%1050-25,y=334+(i%4)*7;
    ctx.fillStyle=i%4===0?'#a94b4b':i%3===0?'#d4a07e':'#29394e';
    ctx.beginPath();ctx.arc(x+3,y-5,3.5,0,Math.PI*2);ctx.fill();
    rect(x,y,6,14,i%4===0?'#a94b4b':'#29394e');
-   if(i%12===0){rect(x+7,y-31,2,30,'#59453e');ctx.fillStyle='#f02e43';ctx.beginPath();ctx.moveTo(x+9,y-30);ctx.lineTo(x+31,y-25);ctx.lineTo(x+9,y-17);ctx.closePath();ctx.fill();}
+   if(i%12===0){rect(x+7,y-31,2,30,'#59453e');drawWavingPennant(x+9,y-30,22,13,sceneTime*5+i,flagResponse);}
  }
- // Foreground red flags.
+ // Foreground flags and warm street lamps add movement and depth.
  for(let i=0;i<7;i++){
    const x=((i*157-worldDistance*.63)%1050+1050)%1050;
    rect(x,270,3,57,'#65473e');
-   ctx.fillStyle='#f12f43';ctx.beginPath();ctx.moveTo(x+3,272);ctx.lineTo(x+35,278);ctx.lineTo(x+3,293);ctx.closePath();ctx.fill();
-   line(x+5,276,x+26,279,'#ff9297',1);
+   drawWavingPennant(x+3,272,32,21,sceneTime*5+i*1.7,flagResponse);
  }
+ drawStreetLamps();
 }
 function drawGround(){
  const road=ctx.createLinearGradient(0,ground,0,540);road.addColorStop(0,'#424a55');road.addColorStop(1,'#222a34');
@@ -467,7 +585,7 @@ function drawPlayerFallback(){
  rect(x+15,y+1,31,28,'#c98763');rect(x+12,y+1,34,10,'#26242a');rect(x+15,y-4,25,8,'#26242a');rect(x+11,y+5,8,12,'#26242a');rect(x+23,y+12,4,3,'#19191d');rect(x+37,y+12,4,3,'#19191d');rect(x+27,y+18,15,5,'#292026');rect(x+25,y+22,17,3,'#292026');
 }
 
-function drawPlayer(){
+function drawPlayer(speed, elapsed, reducedMotion){
  const jumpOffset=Math.max(0,(ground-player.h)-player.y);
  const shadowStrength=Math.max(.12,1-jumpOffset/210);
  const shadowWidth=Math.max(12,29-jumpOffset*.085);
@@ -485,7 +603,6 @@ function drawPlayer(){
  else idx=Math.floor(frame/6)%pool.length;
  const sprite=pool[idx] || pool.find(im=>im.complete&&im.naturalWidth>0);
  if(!sprite || !sprite.complete || !sprite.naturalWidth){
-   // Brief loading fallback; sprite images are embedded in this file and will replace this immediately.
    drawPlayerFallback();return;
  }
  const targetH=sliding?88:(jumpOffset>2?142:136);
@@ -493,10 +610,12 @@ function drawPlayer(){
  const targetW=targetH*ratio;
  const x=player.x-(targetW-54)*.5-3;
  const y=ground-targetH-jumpOffset;
+ drawFlagTrail(x,y,targetH/sprite.naturalHeight,speed,elapsed,reducedMotion);
  ctx.save();
  ctx.imageSmoothingEnabled=true;
  ctx.shadowColor='transparent';ctx.shadowBlur=0;ctx.drawImage(sprite,x,y,targetW,targetH);
  ctx.restore();
+ drawCarriedFlag(sprite,x,y,targetH,player,speed,elapsed,sliding);
 }
 
 function drawBanner(o) {
@@ -524,16 +643,19 @@ function drawSpeedLines(speed, reducedMotion) {
 }
 function draw(state, reducedMotion = false) {
  player = state.player; frame = state.frame; worldDistance = reducedMotion ? 0 : state.worldDistance;
- drawSky(); drawGround(); drawSpeedLines(state.speed, reducedMotion);
+ sceneTime = reducedMotion ? 0 : state.elapsed; sceneSpeed = state.speed; visualReducedMotion = reducedMotion;
+ flagResponse = reducedMotion ? 0 : Math.min(1, Math.max(0, -state.player.vy / Math.abs(RULES.jumpVelocity)) + (state.player.slide > 0 ? .55 : 0));
+ drawSky(); drawGround(); drawLampPools(); drawSpeedLines(state.speed, reducedMotion);
  rect(790,300,145,36,'#d8a45e');rect(796,306,133,24,'#f4cf8c');text('JANTAR MANTAR',862,322,13,'#673a2d','center');
  state.collectibles.forEach(c => {
    const bob = reducedMotion ? 0 : Math.sin((frame + c.x) * .08) * 4;
    ctx.fillStyle = '#ffedb835'; ctx.beginPath(); ctx.arc(c.x + 15, ground - 92 + bob, 25, 0, Math.PI * 2); ctx.fill();
-   rect(c.x,ground-104+bob,5,29,'#e8e3d5');rect(c.x+5,ground-102+bob,26,17,'#f0263b');
+   rect(c.x,ground-104+bob,5,29,'#e8e3d5');
+   drawWavingPennant(c.x+5,ground-102+bob,26,17,sceneTime*6+c.x*.03,flagResponse);
    text('+10',c.x+12,ground-112+bob,10,'#fff','center');
  });
  state.obstacles.forEach(o => o.type === 'banner' ? drawBanner(o) : o.type === 'cone' ? drawCone(o) : o.type === 'police' ? drawPolice(o) : drawBarricade(o));
- if (state.mode !== 'home') drawPlayer();
+ if (state.mode !== 'home') drawPlayer(state.speed,state.elapsed,reducedMotion);
  if (!reducedMotion) state.particles.forEach(particle => {
    ctx.globalAlpha = Math.max(0, Math.min(1, particle.life / (particle.maxLife || .5)));
    const size = particle.size || 4;
