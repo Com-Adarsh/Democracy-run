@@ -134,6 +134,9 @@ h1>span{color:#ed1833}
 .relay-track{height:9px;margin-top:13px;border-radius:99px;background:#080709;border:1px solid #51444a;overflow:hidden}
 .relay-track>span{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#ed1833,#ffd400);transition:width .55s ease}
 .relay-card p{margin:9px 0 0!important;color:#c4c0c5!important;font-size:10px!important}
+.leaderboard-status{margin:0 0 12px!important;color:#aaa6ad!important;font-size:9px!important;min-height:14px}
+.leaderboard-status[data-state="online"]{color:#ffd400!important}
+.leaderboard-status[data-state="error"]{color:#f1a2a4!important}
 .leaderboard-heading,.leaderboard-list li{display:grid;grid-template-columns:minmax(110px,1.5fr) .7fr .7fr .9fr;align-items:center;gap:10px}
 .leaderboard-heading{padding:0 12px 9px;color:#aaa6ad;font-size:8px;font-weight:800;letter-spacing:.9px}
 .leaderboard-list{list-style:none;padding:0;margin:0;max-height:245px;overflow:auto}
@@ -154,7 +157,7 @@ h1>span{color:#ed1833}
 html,body{background:#09090b;color:#fff}
 .site-header,footer{border-color:#373237;color:#e5e5e8}
 .brand,.text-button,.playbook h2,.setting-row b{color:#fff}
-.brand-icon{background:#fff;color:#8b0000}
+ .brand-icon{background:#fff;color:#8a0303}
 .edition,.eyebrow,.stat-label,.pace{color:#c8c8ce}
 .edition span,.icon-button{border-color:#565057;color:#fff}
 .icon-button:hover{background:#292126}
@@ -208,6 +211,8 @@ h1{color:#fff}h1>span{color:#ed1833}
 @media(max-width:480px){.home-screen{background:linear-gradient(90deg,#09090bfa,#210910f0 58%,#4a0b18a8)}}
 @keyframes button-glow{0%,100%{box-shadow:0 3px 0 #8e0b20,0 0 0 0 #ffd40000}50%{box-shadow:0 3px 0 #8e0b20,0 0 0 6px #ffd40028}}
 ::selection{background:#ffd400;color:#09090b}
+.stage canvas{touch-action:none}
+.button-row .button{min-height:50px}
 </style>
 </head>
 <body>
@@ -243,14 +248,14 @@ h1{color:#fff}h1>span{color:#ed1833}
         <div class="game-toolbar"><span id="run-status"><span class="tiny-star">★</span> Ready when you are.</span><div class="audio-controls"><button id="sound" aria-pressed="false">SFX <span>OFF</span></button><button id="music" aria-pressed="false">MUSIC <span>OFF</span></button></div></div>
       </div>
 
-      <div class="community-tools" aria-label="Community features"><button id="open-leaderboard" class="community-button"><span class="community-index">01</span><span>THE VANGUARD<small>LOCAL LEADERBOARD</small></span><b aria-hidden="true">↗</b></button><button id="open-thoughts" class="community-button"><span class="community-index">02</span><span>LEAVE A THOUGHT<small id="thought-preview">VOICES MAKE A DEMOCRACY</small></span><b aria-hidden="true">↗</b></button></div>
+      <div class="community-tools" aria-label="Community features"><button id="open-leaderboard" class="community-button"><span class="community-index">01</span><span>THE VANGUARD<small>GLOBAL LEADERBOARD</small></span><b aria-hidden="true">↗</b></button><button id="open-thoughts" class="community-button"><span class="community-index">02</span><span>LEAVE A THOUGHT<small id="thought-preview">VOICES MAKE A DEMOCRACY</small></span><b aria-hidden="true">↗</b></button></div>
       <div class="touch-controls" aria-label="Touch game controls"><button id="jump" class="touch-button"><span aria-hidden="true">↑</span><span>JUMP<small>Clear the obstacles</small></span></button><button id="slide" class="touch-button"><span aria-hidden="true">↓</span><span>SLIDE<small>Get under banners</small></span></button></div>
 
       <section class="playbook" aria-label="Quick controls"><article><span class="control-key">↑</span><div><h2>Rise above.</h2><p><kbd>Space</kbd> or <kbd>↑</kbd> to jump</p></div><span class="step-number">01</span></article><article><span class="control-key">↓</span><div><h2>Stay quick.</h2><p><kbd>↓</kbd> to slide under banners</p></div><span class="step-number">02</span></article><article><span class="control-key flag-key">⚑</span><div><h2>Carry it forward.</h2><p>10 base · streak bonus up to <b>+20</b></p></div><span class="step-number">03</span></article></section>
-      <p class="storage-note" id="storage-note">Your best score stays on this browser. Play on mobile or desktop.</p>
+      <p class="storage-note" id="storage-note">Your personal best stays on this browser. Global scores and the shared march need the online game service.</p>
       <noscript><p class="error-message">Enable JavaScript to play The Democracy Run.</p></noscript>
       <p id="load-error" class="error-message" hidden></p>
-      <dialog id="leaderboard-dialog" class="modal leaderboard-dialog"><div class="modal-content leaderboard-content"><button class="modal-close" data-close="leaderboard-dialog" aria-label="Close leaderboard">×</button><p class="eyebrow">THE VANGUARD · THIS BROWSER</p><h2>March of<br><span>the brave.</span></h2><label class="callsign-label" for="leaderboard-name">YOUR CALLSIGN</label><input id="leaderboard-name" class="callsign-input" maxlength="18" autocomplete="nickname" placeholder="Street runner"><section class="relay-card" aria-labelledby="relay-title"><div class="relay-heading"><span id="relay-title">LOCAL DISTANCE RELAY</span><strong id="relay-distance">0 m</strong></div><div class="relay-track" role="progressbar" id="relay-progress" aria-label="Local distance toward 5,000 kilometer goal" aria-valuemin="0" aria-valuemax="5000000" aria-valuenow="0"><span id="relay-fill"></span></div><p id="relay-caption">Together on this browser: 0 m of 5,000 km.</p></section><div class="leaderboard-heading"><span>RUNNER</span><span>METERS</span><span>SCORE</span><span>BLOCKADES</span></div><ol id="leaderboard-list" class="leaderboard-list" aria-live="polite"></ol><p class="modal-note">Scores and relay distance are stored on this device; they are not shared globally yet.</p><button class="button button-primary full" data-close="leaderboard-dialog">BACK TO THE RUN <span>→</span></button></div></dialog>
+      <dialog id="leaderboard-dialog" class="modal leaderboard-dialog"><div class="modal-content leaderboard-content"><button class="modal-close" data-close="leaderboard-dialog" aria-label="Close leaderboard">×</button><p class="eyebrow">THE VANGUARD · GLOBAL MARCH</p><h2>March of<br><span>the brave.</span></h2><label class="callsign-label" for="leaderboard-name">YOUR CALLSIGN</label><input id="leaderboard-name" class="callsign-input" maxlength="18" autocomplete="nickname" placeholder="Street runner"><section class="relay-card" aria-labelledby="relay-title"><div class="relay-heading"><span id="relay-title">GLOBAL DISTANCE MARCHED</span><strong id="relay-distance">0 m</strong></div><div class="relay-track" role="progressbar" id="relay-progress" aria-label="Global distance toward 5,000 kilometer goal" aria-valuemin="0" aria-valuemax="5000000" aria-valuenow="0"><span id="relay-fill"></span></div><p id="relay-caption">The movement has marched 0 m of 5,000 km.</p></section><p id="global-status" class="leaderboard-status" data-state="loading" aria-live="polite">Connecting to the global march…</p><div class="leaderboard-heading"><span>RUNNER</span><span>METERS</span><span>SCORE</span><span>BLOCKADES</span></div><ol id="leaderboard-list" class="leaderboard-list" aria-live="polite"></ol><p class="modal-note">If the shared service is offline or not configured, this browser’s scores will appear here. Network addresses are stored as short lived hashes to limit spam.</p><button class="button button-primary full" data-close="leaderboard-dialog">BACK TO THE RUN <span>→</span></button></div></dialog>
       <dialog id="thoughts-dialog" class="modal thoughts-dialog"><div class="modal-content"><button class="modal-close" data-close="thoughts-dialog" aria-label="Close thoughts">×</button><p class="eyebrow">ECHOES OF JANTAR MANTAR</p><h2>Choose a<br><span>thought.</span></h2><p>Your message appears as a painted mural during the run and returns on your finish card.</p><div class="thought-options" role="group" aria-label="Choose a protest thought"><button class="thought-option" data-thought="0">JOBS WITH DIGNITY</button><button class="thought-option" data-thought="1">EQUALITY FOR EVERY VOICE</button><button class="thought-option" data-thought="2">EDUCATION IS A RIGHT</button><button class="thought-option" data-thought="3">PEACEFUL ASSEMBLY MATTERS</button><button class="thought-option" data-thought="4">JUSTICE BELONGS TO ALL</button></div><p class="modal-note">These are community prompts, not attributed quotations.</p><button class="button button-primary full" data-close="thoughts-dialog">CARRY IT FORWARD <span>→</span></button></div></dialog>
     </main>
     <footer><span>SFI CUSAT SAMSKARA <span class="footer-star">★</span> THE DEMOCRACY RUN</span><span>Small game. Endless determination.</span></footer>
@@ -260,7 +265,7 @@ h1{color:#fff}h1>span{color:#ed1833}
 
   <dialog id="over-dialog" class="modal results-modal"><div class="modal-content"><p id="result-eyebrow" class="eyebrow">THE MOVEMENT CONTINUES</p><h2>Blocked.<br><span>Not stopped.</span></h2><p id="result-reason">Time for another run?</p><div class="results-grid"><div><span>YOUR SCORE</span><strong id="result-score">00000</strong></div><div><span>FLAGS COLLECTED</span><strong id="result-flags">0</strong></div></div><p class="result-best">PERSONAL BEST <b id="result-best">00000</b></p><button id="retry" class="button button-primary full">RUN IT BACK <span>↻</span></button><div class="button-row"><button id="share" class="button button-soft">Share score ↗</button><button id="home-over" class="button button-soft">Main menu</button></div><p id="share-status" class="modal-note" aria-live="polite"></p><textarea id="share-fallback" aria-label="Score text to copy" readonly hidden></textarea></div></dialog>
 
-  <dialog id="help-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="help-dialog" aria-label="Close instructions">×</button><p class="eyebrow">THE QUICK START</p><h2>Keep moving.</h2><p>Run automatically through Delhi. Time your moves, collect flags, and beat your personal best.</p><ol class="instructions-list"><li><b>Jump</b><span>Press Space, ↑, or W. On a phone, tap JUMP or the game area. Clear cones, barricades, and police obstacles.</span></li><li><b>Slide</b><span>Press ↓ or S, or tap SLIDE. Crouch under hanging banners marked ↓. Banners appear after 240 points.</span></li><li><b>Collect &amp; score</b><span>Earn 24 points each second and 10 per flag. Chain flags within 4 seconds for streak bonuses up to 20 points. Near misses add 15 points. The street gets faster as your score grows.</span></li><li><b>Pause</b><span>Press P or Esc, or use Ⅱ. Switching away from the game pauses your run automatically.</span></li></ol><button class="button button-primary full" data-close="help-dialog">GOT IT <span>→</span></button></div></dialog>
+      <dialog id="help-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="help-dialog" aria-label="Close instructions">×</button><p class="eyebrow">THE QUICK START</p><h2>Keep moving.</h2><p>Run automatically through Delhi. Time your moves, collect flags, and beat your personal best.</p><ol class="instructions-list"><li><b>Jump</b><span>Press Space, ↑, or W. On a phone, swipe up on the game or tap JUMP. Clear cones, barricades, and police obstacles.</span></li><li><b>Slide</b><span>Press ↓ or S, swipe down on the game, or tap SLIDE. Crouch under hanging banners marked ↓. Banners appear after 240 points.</span></li><li><b>Collect &amp; score</b><span>Earn 24 points each second and 10 per flag. Chain flags within 4 seconds for streak bonuses up to 20 points. Near misses add 15 points. The street gets faster as your score grows.</span></li><li><b>Pause</b><span>Press P or Esc, or use Ⅱ. Switching away from the game pauses your run automatically.</span></li></ol><button class="button button-primary full" data-close="help-dialog">GOT IT <span>→</span></button></div></dialog>
 
   <dialog id="settings-dialog" class="modal"><div class="modal-content"><button class="modal-close" data-close="settings-dialog" aria-label="Close settings">×</button><p class="eyebrow">MAKE IT YOUR RUN</p><h2>Settings.</h2><label class="setting-row"><span><b>Sound effects</b><small>Jumps, flags, and game-over sounds</small></span><input id="setting-sound" type="checkbox" role="switch"></label><label class="setting-row"><span><b>Arcade music</b><small>The original synthesized game soundtrack</small></span><input id="setting-music" type="checkbox" role="switch"></label><label class="setting-row"><span><b>Reduced motion</b><small>Less background motion and no particles</small></span><input id="setting-motion" type="checkbox" role="switch"></label><p class="modal-note">Preferences are saved on this browser. Music plays during your run.</p><button class="button button-primary full" data-close="settings-dialog">DONE <span>✓</span></button></div></dialog>
   <p class="sr-only" id="announcement" aria-live="polite"></p>
@@ -378,7 +383,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       const r = random(), type = s.score > 240 && r > 0.94 ? 'banner' : r < 0.24 ? 'cone' : r > 0.86 ? 'police' : 'barrier';
       // Fix the original 24–30% branch: a barricade must have barricade width.
       const obstacle = obstaclePool.pop() || {};
-      Object.assign(obstacle, { x: 1000, w: type === 'banner' ? 100 : type === 'cone' ? 34 : 76, type, passed: false });
+      Object.assign(obstacle, { x: 1000, w: type === 'banner' ? 100 : type === 'cone' ? 34 : 76, type, passed: false, warned: false });
       s.obstacles.push(obstacle);
       s.spawn += Math.max(0.78, 1.55 - (s.speed - 330) * 0.001 + random() * 0.38);
     }
@@ -411,6 +416,10 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     if (p.onGround && p.slide <= 0 && p.jumpBuffer > 0) launchJump();
     for (let i = s.obstacles.length - 1; i >= 0; i--) {
       const obstacle = s.obstacles[i]; obstacle.x -= s.speed * dt;
+      if (!obstacle.warned && (obstacle.type === 'police' || obstacle.type === 'barrier') &&
+          obstacle.x < p.x + 300 && obstacle.x > p.x + 100) {
+        obstacle.warned = true; onEvent('warning', s);
+      }
       if (obstacle.x <= -140) releaseAt(s.obstacles, i, obstaclePool);
     }
     for (let i = s.collectibles.length - 1; i >= 0; i--) {
@@ -549,7 +558,7 @@ function writeSettings(storage, settings) {
 
 // Original v1.3 synthesized melody; no downloaded music or audio libraries.
 function createAudio() {
-  let context, timer = null, step = 0;
+  let context, timer = null, step = 0, pace = 1;
   const active = new Set();
   const lead = [659,0,784,988,0,784,659,523,587,0,698,880,0,698,587,494,523,0,659,784,0,659,587,440,494,0,587,740,0,587,523,392];
   const bass = [131,131,165,165,147,147,123,123];
@@ -577,23 +586,59 @@ function createAudio() {
     oscillator.start(now); oscillator.stop(now + duration + 0.03);
   }
   function stop() {
-    if (timer !== null) { clearInterval(timer); timer = null; }
+    if (timer !== null) { clearTimeout(timer); timer = null; }
     for (const oscillator of active) { try { oscillator.stop(); } catch {} }
     active.clear();
+  }
+  function scheduleMusic() {
+    timer = setTimeout(() => {
+      timer = null;
+      if (lead[step % lead.length]) note(lead[step % lead.length], 0.105);
+      if (step % 4 === 0) note(bass[Math.floor(step / 4) % bass.length], 0.28, 'triangle', 0.035);
+      if (step % 2 === 0) note(110, 0.035, 'sawtooth', 0.006);
+      step++;
+      scheduleMusic();
+    }, Math.round(145 / pace));
+  }
+  function whistle() {
+    if (!context || context.state !== 'running') return;
+    const oscillator = context.createOscillator(), gain = context.createGain(), now = context.currentTime;
+    oscillator.type = 'sine'; oscillator.frequency.setValueAtTime(1450, now);
+    oscillator.frequency.exponentialRampToValueAtTime(1950, now + .12);
+    oscillator.frequency.exponentialRampToValueAtTime(1500, now + .3);
+    gain.gain.setValueAtTime(.0001, now); gain.gain.exponentialRampToValueAtTime(.035, now + .025);
+    gain.gain.exponentialRampToValueAtTime(.0001, now + .34);
+    oscillator.connect(gain); gain.connect(context.destination); active.add(oscillator);
+    oscillator.onended = () => { active.delete(oscillator); oscillator.disconnect(); gain.disconnect(); };
+    oscillator.start(now); oscillator.stop(now + .37);
+  }
+  function crowdSwish() {
+    if (!context || context.state !== 'running') return;
+    const now = context.currentTime;
+    for (const frequency of [145, 185, 225]) {
+      const oscillator = context.createOscillator(), gain = context.createGain(), filter = context.createBiquadFilter();
+      oscillator.type = 'sawtooth'; oscillator.frequency.value = frequency;
+      filter.type = 'lowpass'; filter.frequency.setValueAtTime(420, now); filter.frequency.linearRampToValueAtTime(900, now + .45);
+      gain.gain.setValueAtTime(.0001, now); gain.gain.linearRampToValueAtTime(.012, now + .35);
+      gain.gain.setValueAtTime(.012, now + .75); gain.gain.exponentialRampToValueAtTime(.0001, now + 1.35);
+      oscillator.connect(filter); filter.connect(gain); gain.connect(context.destination); active.add(oscillator);
+      oscillator.onended = () => { active.delete(oscillator); oscillator.disconnect(); gain.disconnect(); filter.disconnect(); };
+      oscillator.start(now); oscillator.stop(now + 1.4);
+    }
   }
   function play() {
     if (timer !== null) return true;
     if (!unlock()) return false;
     step = 0;
-    timer = setInterval(() => {
-      if (lead[step % lead.length]) note(lead[step % lead.length], 0.105);
-      if (step % 4 === 0) note(bass[Math.floor(step / 4) % bass.length], 0.28, 'triangle', 0.035);
-      if (step % 2 === 0) note(110, 0.035, 'sawtooth', 0.006);
-      step++;
-    }, 145);
+    scheduleMusic();
     return true;
   }
-  return { unlock, play, stop, beep: (frequency = 500, duration = 0.07) => note(frequency, duration, 'sine', 0.04) };
+  return {
+    unlock, play, stop, whistle, crowdSwish,
+    setPace(speed) { pace = Math.min(1.28, Math.max(1, speed / RULES.initialSpeed)); },
+    beep: (frequency = 500, duration = 0.07) => note(frequency, duration, 'sine', 0.04),
+    thud: () => note(92, .16, 'triangle', .075),
+  };
 }
 
 
@@ -603,7 +648,7 @@ function createRenderer(canvas, initialThought = THOUGHTS[0]) {
 const ctx = canvas.getContext('2d');
 if (!ctx) throw new Error('Your browser could not start the game canvas.');
 const ground = RULES.ground;
-let player, frame = 0, worldDistance = 0;
+let player, frame = 0, worldDistance = 0, sceneDistance = 0;
 let muralText = initialThought;
 let sceneTime = 0, sceneSpeed = RULES.initialSpeed, flagResponse = 0, visualReducedMotion = false;
 const makeSprites = sources => sources.map(src => { const image = new Image(); image.src = src; return image; });
@@ -678,25 +723,32 @@ function lampPositions() {
  return Array.from({ length: 5 }, (_, i) => ((i * 350 - worldDistance * .68) % 1320 + 1320) % 1320 - 130);
 }
 function drawStreetLamps() {
+  const night = Math.max(0, Math.min(1, (sceneDistance / 100 - 1800) / 300));
  for (const x of lampPositions()) {
    if (x < -45 || x > RULES.width + 45) continue;
    const top = ground - 158;
    const glow = ctx.createRadialGradient(x + 17, top + 4, 2, x + 17, top + 4, 72);
-   glow.addColorStop(0, '#ffd40038'); glow.addColorStop(1, '#ffd40000');
+    glow.addColorStop(0, '#ffd40038'); glow.addColorStop(1, '#ffd40000');
+    ctx.save(); ctx.globalAlpha = .16 + night * .84;
    ctx.fillStyle = glow; ctx.fillRect(x - 55, top - 64, 145, 150);
    line(x, ground, x + 1, top + 13, '#4a4247', 4);
    line(x + 1, top + 13, x + 18, top + 4, '#4a4247', 3);
    line(x + 18, top + 4, x + 31, top + 4, '#4a4247', 3);
    ctx.fillStyle = '#ffd95c'; ctx.beginPath(); ctx.arc(x + 28, top + 7, 4, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
  }
 }
 function drawLampPools() {
+  const night = Math.max(0, Math.min(1, (sceneDistance / 100 - 1800) / 300));
+  if (night <= 0) return;
+  ctx.save(); ctx.globalAlpha = night;
  for (const x of lampPositions()) {
    if (x < -80 || x > RULES.width + 80) continue;
    const pool = ctx.createRadialGradient(x + 16, ground + 30, 2, x + 16, ground + 30, 74);
    pool.addColorStop(0, '#ffd40024'); pool.addColorStop(.55, '#ffd40012'); pool.addColorStop(1, '#ffd40000');
    ctx.fillStyle = pool; ctx.fillRect(x - 58, ground + 7, 150, 76);
  }
+  ctx.restore();
 }
 function drawCarriedFlag(sprite, spriteX, spriteY, targetH, player, speed, elapsed, sliding) {
  const sw = sprite.naturalWidth, sh = sprite.naturalHeight, scale = targetH / sh;
@@ -759,31 +811,36 @@ function mixColor(from, to, amount) {
  return `rgb(${a.map((value, i) => Math.round(value + (b[i] - value) * amount)).join(',')})`;
 }
 function drawSky(){
-  // The sky deepens from near-black into a cinematic red twilight as the run continues.
-  const dusk = Math.min(1, Math.max(0, sceneTime / 110));
+   // Visual phases follow distance: afternoon through 1,000 m, sunset by 1,100 m,
+   // then night fades in after 1,900 m and reaches full darkness at 2,200 m.
+   const meters = sceneDistance / 100;
+   const dusk = Math.min(1, Math.max(0, (meters - 900) / 200));
+   const night = Math.min(1, Math.max(0, (meters - 1900) / 300));
  const g=ctx.createLinearGradient(0,0,0,ground);
-   const skyTop=mixColor('#111014','#08070a',dusk), skyMiddle=mixColor('#260d17','#390814',dusk);
-   const skyHorizon=mixColor('#671c2a','#a31c25',dusk), buildingColor=mixColor('#270d16','#18080e',dusk);
-   const windowColor=mixColor('#ffd400','#fff1a6',dusk), landmarkColor=mixColor('#711523','#4b0d19',dusk);
+    const skyTop=mixColor(mixColor('#45566b','#111014',dusk),'#05060b',night);
+    const skyMiddle=mixColor(mixColor('#997257','#260d17',dusk),'#10111b',night);
+    const skyHorizon=mixColor(mixColor('#e08b5c','#671c2a',dusk),'#29243a',night);
+    const buildingColor=mixColor(mixColor('#57444b','#270d16',dusk),'#0d0c14',night);
+    const windowColor=mixColor('#e8d0aa','#ffd400',dusk), landmarkColor=mixColor(mixColor('#86635c','#711523',dusk),'#311122',night);
   g.addColorStop(0,skyTop);g.addColorStop(.52,skyMiddle);g.addColorStop(1,skyHorizon);
  ctx.fillStyle=g;ctx.fillRect(0,0,960,ground);
  const glow=ctx.createRadialGradient(650,185,12,650,185,230);
-   glow.addColorStop(0,`rgba(255,${Math.round(70-12*dusk)},${Math.round(31+9*dusk)},.27)`);
+    glow.addColorStop(0,`rgba(255,${Math.round(142-72*dusk-28*night)},${Math.round(91-60*dusk)},.27)`);
    glow.addColorStop(1,'rgba(237,24,51,0)');
  ctx.fillStyle=glow;ctx.fillRect(400,0,500,ground);
-  if (dusk > .62) {
-    ctx.save(); ctx.globalAlpha = (dusk - .62) * 1.8;
+   if (night > 0) {
+     ctx.save(); ctx.globalAlpha = night;
     for (let i=0;i<13;i++) {
       const x=75+(i*137%790), y=24+(i*47%115), twinkle=.55+.45*Math.sin(sceneTime*1.6+i*2.1);
-      ctx.globalAlpha = (dusk-.62)*1.8*twinkle;
+        ctx.globalAlpha = night*twinkle;
        ctx.fillStyle='#ffd400';ctx.fillRect(x,y,2,2);
     }
     ctx.restore();
   }
  // Soft rounded clouds instead of block clouds.
- for(let i=0;i<6;i++){
+  for(let i=0;i<6;i++){
    const x=((i*190-worldDistance*.12)%1120+1120)%1120-90,y=60+(i%3)*48;
-   ctx.fillStyle='#35131d';ctx.beginPath();
+     ctx.fillStyle=mixColor(mixColor('#a18c88','#35131d',dusk),'#12111a',night);ctx.beginPath();
    ctx.ellipse(x+35,y+8,43,12,0,0,Math.PI*2);
    ctx.ellipse(x+20,y+3,20,13,0,0,Math.PI*2);
    ctx.ellipse(x+48,y-4,24,17,0,0,Math.PI*2);
@@ -965,7 +1022,7 @@ function drawSpeedLines(speed, reducedMotion) {
  ctx.restore();
 }
 function draw(state, reducedMotion = false, shakeX = 0, shakeY = 0) {
- player = state.player; frame = state.frame; worldDistance = reducedMotion ? 0 : state.worldDistance;
+  player = state.player; frame = state.frame; sceneDistance = state.worldDistance; worldDistance = reducedMotion ? 0 : state.worldDistance;
  sceneTime = reducedMotion ? 0 : state.elapsed; sceneSpeed = state.speed; visualReducedMotion = reducedMotion;
  flagResponse = reducedMotion ? 0 : Math.min(1, Math.max(0, -state.player.vy / Math.abs(RULES.jumpVelocity)) + (state.player.slide > 0 ? .55 : 0));
  ctx.clearRect(0, 0, RULES.width, RULES.height);
@@ -1007,33 +1064,114 @@ let selectedThoughtIndex = Number(readText(storage, THOUGHT_KEY, '0'));
 if (!Number.isInteger(selectedThoughtIndex) || selectedThoughtIndex < 0 || selectedThoughtIndex >= THOUGHTS.length) selectedThoughtIndex = 0;
 let selectedThought = THOUGHTS[selectedThoughtIndex];
 let runnerName = readText(storage, CALLSIGN_KEY, '').slice(0, 18);
+let runSessionPromise = Promise.resolve(null);
 const audio = createAudio();
 let renderer, clock, raf = 0, utilityFocus = null, impactAt = -Infinity, impactFrameDrawn = false;
 const game = createGame({ onEvent });
 
 function announce(message) { $('announcement').textContent = message; }
 function formatMeters(value) { return Math.floor(value).toLocaleString() + ' m'; }
-function renderLeaderboard() {
+function setGlobalStatus(message, state = 'loading') {
+  const status = $('global-status');
+  if (!status) return;
+  status.textContent = message;
+  status.dataset.state = state;
+}
+function setRelayMeters(value, global = false) {
+  const meters = Math.max(0, Math.floor(Number(value) || 0));
+  const progress = Math.min(100, meters / RELAY_GOAL_METERS * 100);
+  $('relay-distance').textContent = formatMeters(meters);
+  $('relay-caption').textContent = (global ? 'Together, runners have marched ' : 'On this browser: ') + formatMeters(meters) + ' of 5,000 km.';
+  $('relay-progress').setAttribute('aria-valuenow', String(Math.min(RELAY_GOAL_METERS, meters)));
+  $('relay-fill').style.width = progress + '%';
+}
+function renderLeaderboardRows(runs, emptyMessage) {
   const list = $('leaderboard-list');
   if (!list) return;
   list.replaceChildren();
-  $('leaderboard-name').value = runnerName;
-  const progress = Math.min(100, community.totalMeters / RELAY_GOAL_METERS * 100);
-  $('relay-distance').textContent = formatMeters(community.totalMeters);
-  $('relay-caption').textContent = 'Together on this browser: ' + formatMeters(community.totalMeters) + ' of 5,000 km.';
-  $('relay-progress').setAttribute('aria-valuenow', String(Math.min(RELAY_GOAL_METERS, community.totalMeters)));
-  $('relay-fill').style.width = progress + '%';
-  if (!community.runs.length) {
+  if (!runs.length) {
     const empty = document.createElement('li'); empty.className = 'leaderboard-empty';
-    empty.textContent = 'Your first completed run will start the march.'; list.append(empty); return;
+    empty.textContent = emptyMessage; list.append(empty); return;
   }
-  community.runs.forEach((run, index) => {
+  runs.slice(0, 10).forEach((run, index) => {
     const row = document.createElement('li'); if (index < 3) row.classList.add('top-three');
     for (const value of [run.name, formatMeters(run.meters), formatScore(run.score), String(run.blockades)]) {
       const cell = document.createElement('span'); cell.textContent = value; row.append(cell);
     }
     list.append(row);
   });
+}
+function showGlobalData(data) {
+  if (!data || !Array.isArray(data.leaderboard)) throw new Error('Unexpected leaderboard response.');
+  const runs = data.leaderboard.map(row => ({
+    name: String(row.player_name || 'Street runner'),
+    meters: Number(row.distance_meters) || 0,
+    score: Number(row.score) || 0,
+    blockades: Number(row.blockades) || 0,
+  }));
+  setRelayMeters(data.totalMeters, true);
+  renderLeaderboardRows(runs, 'The global march is ready for its first completed run.');
+}
+async function refreshGlobalLeaderboard() {
+  if (!/^https?:$/.test(location.protocol)) {
+    setGlobalStatus('Global scores turn on after this page is deployed with the online service.', 'error');
+    return;
+  }
+  setGlobalStatus('Connecting to the global march…');
+  try {
+    const response = await fetch('/api/leaderboard', { headers: { Accept: 'application/json' } });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || 'The global service is not available.');
+    showGlobalData(data);
+    setGlobalStatus('Connected · showing the global top 10.', 'online');
+  } catch {
+    setRelayMeters(community.totalMeters);
+    renderLeaderboardRows(community.runs, community.runs.length ? 'No local runs yet.' : 'Your first completed run will start the local march.');
+    setGlobalStatus('Global service unavailable. Showing scores saved on this browser.', 'error');
+  }
+}
+async function requestRunSession() {
+  if (!/^https?:$/.test(location.protocol)) return null;
+  try {
+    const response = await fetch('/api/leaderboard', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ action: 'start' }),
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    return typeof data.sessionToken === 'string' ? data.sessionToken : null;
+  } catch { return null; }
+}
+async function submitGlobalRun(state) {
+  const sessionToken = await runSessionPromise;
+  if (!sessionToken) {
+    setGlobalStatus('This run is saved locally. The global service is not configured or could not be reached.', 'error');
+    return;
+  }
+  const payload = {
+    action: 'submit', sessionToken, playerName: runnerName,
+    score: Math.floor(state.score), distanceMeters: Math.floor(state.worldDistance / 100),
+    blockades: state.barricades, elapsedSeconds: Math.floor(state.elapsed),
+  };
+  try {
+    const response = await fetch('/api/leaderboard', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || 'The run could not be submitted.');
+    showGlobalData(data);
+    setGlobalStatus('Run added to the global march.', 'online');
+  } catch {
+    setGlobalStatus('This run is saved locally. The global service could not accept it.', 'error');
+  }
+}
+function renderLeaderboard(refreshGlobal = true) {
+  $('leaderboard-name').value = runnerName;
+  setRelayMeters(community.totalMeters);
+  renderLeaderboardRows(community.runs, 'Your first completed run will start the local march.');
+  setGlobalStatus('Showing scores saved on this browser.', 'loading');
+  if (refreshGlobal) void refreshGlobalLeaderboard();
 }
 function renderThoughtSelection() {
   $('thought-preview').textContent = selectedThought;
@@ -1062,7 +1200,8 @@ function recordCommunityRun(state) {
   community.runs.sort((a, b) => b.score - a.score || b.meters - a.meters || b.blockades - a.blockades);
   community.runs = community.runs.slice(0, 10);
   if (!writeCommunity(storage, community)) $('storage-note').textContent = 'Browser storage is unavailable. Community scores stay for this session only.';
-  renderLeaderboard(); updateResultExtras(state);
+  renderLeaderboard(false); updateResultExtras(state);
+  void submitGlobalRun(state);
 }
 function closeDialogs() { document.querySelectorAll('dialog[open]').forEach(dialog => dialog.close()); }
 function showDialog(id) {
@@ -1075,6 +1214,7 @@ function requestRender() { if (!raf && renderer) raf = requestAnimationFrame(ren
 function renderFrame(timestamp) {
   raf = 0; clock.tick(timestamp);
   const state = game.state;
+  if (settings.music && state.mode === 'running') audio.setPace(state.speed);
   const impactAge = state.mode === 'over' ? timestamp - impactAt : Infinity;
   const hitFreeze = impactAge >= 0 && impactAge < 100;
   if (!hitFreeze || !impactFrameDrawn) {
@@ -1096,7 +1236,9 @@ function updateStats() {
   $('score').textContent = formatScore(s.score); $('best').textContent = formatScore(best); $('flags').textContent = s.flags;
   $('streak').textContent = s.combo > 0 ? String(s.combo) + '× +' + Math.min(20, (s.combo - 1) * 5) : '—';
   $('streak-card').classList.toggle('is-active', s.combo > 0);
-  $('pace').textContent = s.mode === 'running' ? `${(s.speed / 330).toFixed(2)}× PACE` : s.mode === 'paused' ? 'PAUSED' : s.mode === 'over' ? 'RUN COMPLETE' : 'READY TO RUN';
+  const meters = s.worldDistance / 100;
+  const phase = meters < 1000 ? 'AFTERNOON' : meters < 2000 ? 'SUNSET' : 'NIGHT';
+  $('pace').textContent = s.mode === 'running' ? `${phase} · ${(s.speed / 330).toFixed(2)}×` : s.mode === 'paused' ? 'PAUSED' : s.mode === 'over' ? 'RUN COMPLETE' : 'READY TO RUN';
   $('pause').disabled = s.mode !== 'running';
   $('jump').disabled = $('slide').disabled = s.mode !== 'running';
 }
@@ -1125,6 +1267,7 @@ function setSetting(key, value) {
 function onEvent(event, state) {
   if (event === 'start' || event === 'resume') {
     impactAt = -Infinity; impactFrameDrawn = false;
+    if (event === 'start') runSessionPromise = requestRunSession();
     closeDialogs(); clock?.reset();
     $('home-screen').hidden = true; $('stage').classList.remove('is-home', 'impact', 'near-miss'); $('stage').classList.add('is-running'); $('scene-label').hidden = false;
     $('run-status').textContent = '↑ Jump obstacles · ↓ Slide under banners';
@@ -1144,6 +1287,7 @@ function onEvent(event, state) {
     audio.stop();
     if (settings.sound) audio.beep(120, 0.2);
     const finalScore = Math.floor(state.score), record = finalScore > best;
+    if (record && settings.sound) audio.crowdSwish();
     best = Math.max(best, finalScore);
     if (!writeBest(storage, best)) $('storage-note').textContent = 'Browser storage is unavailable. Your best score is kept for this session.';
     $('result-score').textContent = formatScore(finalScore); $('result-flags').textContent = state.flags;
@@ -1161,7 +1305,14 @@ function onEvent(event, state) {
     $('home-screen').hidden = false; $('stage').classList.remove('is-running', 'impact', 'near-miss'); $('stage').classList.add('is-home'); $('scene-label').hidden = true;
     $('run-status').innerHTML = '<span class="tiny-star">★</span> Ready when you are.';
     $('start').focus({ preventScroll: true });
-  } else if (event === 'jump' && settings.sound) audio.beep(360);
+  } else if (event === 'jump') {
+    if (settings.sound) audio.beep(360);
+  } else if (event === 'land') {
+    if (settings.sound) audio.thud();
+  } else if (event === 'warning') {
+    if (settings.sound) audio.whistle();
+    $('run-status').textContent = 'Obstacle ahead — time your move.';
+  }
   else if (event === 'clear' || event === 'near-miss') {
     const nearMiss = event === 'near-miss';
     const feedback = $('feedback');
@@ -1176,7 +1327,7 @@ function onEvent(event, state) {
       }
     }
     $('run-status').textContent = nearMiss ? 'Close call! +15 points.' : 'Obstacle cleared. Keep moving.';
-    if (nearMiss && settings.sound) audio.beep(960, .09);
+    if (settings.sound) audio.beep(nearMiss ? 960 : 560, nearMiss ? .09 : .045);
     if (nearMiss) announce('Near miss. 15 bonus points.');
   }
   else if (event === 'flag') {
@@ -1265,7 +1416,24 @@ try {
     // Keyboard and assistive-technology activation do not emit pointerdown.
     $(id).addEventListener('click', event => { if (event.detail === 0) action(); });
   }
-  $('game').addEventListener('pointerdown', event => { event.preventDefault(); game.jump(); });
+  const canvas = $('game');
+  let canvasGesture = null;
+  canvas.addEventListener('pointerdown', event => {
+    if (game.state.mode !== 'running') return;
+    event.preventDefault();
+    canvasGesture = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    try { canvas.setPointerCapture(event.pointerId); } catch { /* Pointer capture is not available in every embedded browser. */ }
+  });
+  canvas.addEventListener('pointerup', event => {
+    if (!canvasGesture || event.pointerId !== canvasGesture.id) return;
+    event.preventDefault();
+    const dx = event.clientX - canvasGesture.x, dy = event.clientY - canvasGesture.y;
+    canvasGesture = null;
+    if (Math.abs(dy) < 40 && Math.abs(dx) < 40) game.jump();
+    else if (dy <= -40 && Math.abs(dy) > Math.abs(dx)) game.jump();
+    else if (dy >= 40 && Math.abs(dy) > Math.abs(dx)) game.slide();
+  });
+  canvas.addEventListener('pointercancel', () => { canvasGesture = null; });
   window.addEventListener('keydown', event => {
     if (event.repeat) return;
     const openDialog = document.querySelector('dialog[open]');
