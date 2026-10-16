@@ -3,7 +3,13 @@
   "framework": null,
   "buildCommand": "",
   "installCommand": "",
-  "outputDirectory": "public",
+  "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/PLAY.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
