@@ -115,6 +115,65 @@ h1>span{color:#ed1833}
 .home-copy>.home-description{animation:poster-enter .52s .18s both cubic-bezier(.2,.75,.25,1)}
 .home-copy>.home-buttons{animation:poster-enter .5s .25s both cubic-bezier(.2,.75,.25,1)}
 ::selection{background:#ffd400;color:#09090b}
+/* Black, deep red, yellow, and white: the Tiranga stays in the environment. */
+:root{--paper:#09090b;--ink:#fff;--muted:#c0c0c6;--red:#ed1833;--red-dark:#9f1023;--line:#373237;--navy:#09090b;--cream:#fff;color-scheme:dark;background:#09090b;color:#fff}
+html,body{background:#09090b;color:#fff}
+.site-header,footer{border-color:#373237;color:#e5e5e8}
+.brand,.text-button,.playbook h2,.setting-row b{color:#fff}
+.brand-icon{background:#fff;color:#8b0000}
+.edition,.eyebrow,.stat-label,.pace{color:#c8c8ce}
+.edition span,.icon-button{border-color:#565057;color:#fff}
+.icon-button:hover{background:#292126}
+.live-dot{background:#ed1833}
+.tiny-star,.footer-star,.text-button span{color:#ffd400}
+.arcade-shell{background:#09090b;border-color:#ed1833;box-shadow:0 18px 55px #050306cc}
+.scoreboard,.game-toolbar{background:#09090b;color:#fff}
+.scoreboard{border-color:#3d3337}
+.stat-label{color:#c3c3c8}
+.main-score strong,.streak-stat strong,.streak-stat.is-active strong{color:#ffd400}
+.flag-stat strong>span:first-child{color:#ffd400}
+.pause-button{border-color:#656067;color:#fff;background:#ffffff0a}
+.pause-button:hover:not(:disabled){background:#ffffff20}
+.stage{background:#09090b}
+.home-screen{background:linear-gradient(100deg,#09090bf7 0%,#210910ed 55%,#4a0b18a8 100%)}
+.home-screen::before{background:radial-gradient(ellipse,#ed183326 0%,#ed183300 68%)}
+.kicker{color:#fff}.kicker span{background:#ffd400}
+h1{color:#fff}h1>span{color:#ed1833}
+.home-description{color:#e3e3e7}
+.button-primary{background:#ed1833;color:#fff;box-shadow:0 3px 0 #8e0b20}
+.button-primary:hover{background:#ff2943}
+.start-hint,.home-caption{color:#d0d0d5}.start-hint kbd{color:#ffd400}
+.hero-orbit{border-color:#ffd40044}.hero-star{color:#ffd400}
+.hero-stamp{color:#fff;border-color:#ffd400;background:#a20d25;box-shadow:5px 5px 0 #0008}
+.scene-label{background:#09090bea;color:#fff;border:1px solid #ffd400}
+.scene-label .live-dot{background:#ed1833}
+.audio-controls button{color:#eee}.audio-controls button span{color:#aaa}
+.audio-controls button[aria-pressed=true] span{color:#ffd400}
+.feedback{color:#fff;text-shadow:0 2px 5px #000,0 0 14px #ffd40070}
+.feedback.combo-pop,.feedback.near-miss-pop{color:#fff;text-shadow:0 0 14px #ffd40088,0 2px 5px #000}
+.touch-button{background:#211419;color:#fff;border:1px solid #504047;box-shadow:0 3px 0 #0a0709}
+.touch-button>span:first-child,.flag-key{color:#ffd400}.touch-button small{color:#c8c8ce}
+.playbook article{background:#171216;border-color:#41353a}
+.control-key{background:#25191f;border-color:#55474c;color:#ffd400}
+.playbook p,.storage-note{color:#c4c4c9}.playbook kbd{color:#eee}
+.step-number{color:#ffd400}.playbook article:hover{box-shadow:0 8px 22px #ed18331f}
+.modal{background:#171216;color:#fff;border-color:#ed1833}
+.modal::backdrop{background:#090609dd;backdrop-filter:blur(5px)}
+.modal .eyebrow,.instructions-list li:before{color:#ffd400}
+.modal h2 span,.result-best b{color:#ed1833}
+.modal p:not(.eyebrow),.instructions-list span,.setting-row small{color:#d0d0d5}
+.modal .modal-note{color:#b8b8be}.modal-close{color:#fff}
+.results-grid{border-color:#4a3c42}.results-grid span{color:#c3c3c8}
+.results-grid>div+div{border-color:#4a3c42}
+.button-soft{background:#2b2025;border-color:#54464b;color:#fff}
+.button-soft:hover{background:#39282f}.setting-row{border-color:#44383d}
+.setting-row input{accent-color:#ffd400}
+.error-message{background:#3d1820;color:#fff;border:1px solid #ed1833}
+#share-fallback{background:#121013;border-color:#555057;color:#fff}
+.feedback.near-miss-pop{color:#ffd400}
+@media(max-width:480px){.home-screen{background:linear-gradient(90deg,#09090bfa,#210910f0 58%,#4a0b18a8)}}
+@keyframes button-glow{0%,100%{box-shadow:0 3px 0 #8e0b20,0 0 0 0 #ffd40000}50%{box-shadow:0 3px 0 #8e0b20,0 0 0 6px #ffd40028}}
+::selection{background:#ffd400;color:#09090b}
 </style>
 </head>
 <body>
@@ -231,7 +290,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
   function launchJump() {
     const p = state.player;
     Object.assign(p, { vy: RULES.jumpVelocity, onGround: false, jumpBuffer: 0, jumpStretch: .14, landSquash: 0 });
-    burst(p.x + 25, RULES.ground - 2, { count: 5, horizontal: 90, lift: 55, size: 3, colors: ['#4b4b4b', '#ffd400'] });
+    burst(p.x + 25, RULES.ground - 2, { count: 5, horizontal: 90, lift: 55, size: 3, colors: ['#555057', '#ffd400'] });
     onEvent('jump', state);
   }
   function slide() {
@@ -239,7 +298,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
       state.player.slide = RULES.slideSeconds;
       state.player.jumpBuffer = 0;
       state.player.slideDust = 0;
-      burst(state.player.x + 25, RULES.ground - 2, { count: 5, horizontal: 130, lift: 45, size: 3, colors: ['#4b4b4b', '#ffd400'] });
+      burst(state.player.x + 25, RULES.ground - 2, { count: 5, horizontal: 130, lift: 45, size: 3, colors: ['#555057', '#ffd400'] });
       onEvent('slide', state);
     }
   }
@@ -256,7 +315,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     state.mode = 'over'; state.player.jumpBuffer = 0; onEvent('over', state);
   }
   function burst(x, y, { count = 14, horizontal = 250, lift = 215, size = 4, life = 0.5,
-    colors = ['#ffdc80', '#ff3945'] } = {}) {
+    colors = ['#ffd400', '#ed1833'] } = {}) {
     for (let i = 0; i < count; i++) {
       const particle = particlePool.pop();
       if (!particle) break;
@@ -297,7 +356,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
     p.landSquash = Math.max(0, p.landSquash - dt);
     p.slideDust -= dt;
     if (p.slide > 0 && p.onGround && p.slideDust <= 0) {
-      burst(p.x + 28, RULES.ground - 2, { count: 2, horizontal: 95, lift: 28, size: 2.5, life: .38, colors: ['#656565', '#ffd400'] });
+      burst(p.x + 28, RULES.ground - 2, { count: 2, horizontal: 95, lift: 28, size: 2.5, life: .38, colors: ['#65616a', '#ffd400'] });
       p.slideDust = .085;
     }
     if (!p.onGround) {
@@ -306,7 +365,7 @@ function createGame({ random = Math.random, onEvent = () => {} } = {}) {
         p.y = RULES.ground - p.h;
         if (p.vy > 100) {
           p.landSquash = .16;
-          burst(p.x + 25, RULES.ground - 2, { count: 9, horizontal: 160, lift: 58, size: 3, colors: ['#656565', '#ffd400'] });
+          burst(p.x + 25, RULES.ground - 2, { count: 9, horizontal: 160, lift: 58, size: 3, colors: ['#65616a', '#ffd400'] });
           onEvent('land', s);
         }
         p.vy = 0; p.onGround = true;
@@ -500,8 +559,40 @@ resize();
 function rect(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))}
 function line(x1,y1,x2,y2,c,w=1){ctx.strokeStyle=c;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
 function text(t,x,y,size,color='#fff',align='left'){ctx.font=`900 ${size}px monospace`;ctx.textAlign=align;ctx.fillStyle=color;ctx.fillText(t,x,y)}
-function drawWavingPennant(x, y, w, h, phase, response = 0) {
- const slices = 8;
+// Build one crisp 3:2 Tiranga texture once, then reuse it for every cloth flag.
+const flagTexture = document.createElement('canvas');
+flagTexture.width = 300; flagTexture.height = 200;
+const flagCtx = flagTexture.getContext('2d');
+flagCtx.fillStyle = '#FF9933'; flagCtx.fillRect(0, 0, 300, 200 / 3);
+flagCtx.fillStyle = '#FFFFFF'; flagCtx.fillRect(0, 200 / 3, 300, 200 / 3);
+flagCtx.fillStyle = '#138808'; flagCtx.fillRect(0, 400 / 3, 300, 200 / 3);
+const chakraX = 150, chakraY = 100, chakraRadius = 24;
+flagCtx.strokeStyle = '#000080'; flagCtx.lineWidth = 3.2;
+flagCtx.beginPath(); flagCtx.arc(chakraX, chakraY, chakraRadius, 0, Math.PI * 2); flagCtx.stroke();
+flagCtx.lineWidth = 1.65;
+for (let spoke = 0; spoke < 24; spoke++) {
+  const angle = -Math.PI / 2 + spoke * Math.PI / 12;
+  flagCtx.beginPath(); flagCtx.moveTo(chakraX, chakraY);
+  flagCtx.lineTo(chakraX + Math.cos(angle) * chakraRadius, chakraY + Math.sin(angle) * chakraRadius);
+  flagCtx.stroke();
+}
+flagCtx.fillStyle = '#000080'; flagCtx.beginPath(); flagCtx.arc(chakraX, chakraY, 3.2, 0, Math.PI * 2); flagCtx.fill();
+// The runner carries a separate red banner; only the world flags use the Tiranga.
+const playerFlagTexture = document.createElement('canvas');
+playerFlagTexture.width = 300; playerFlagTexture.height = 200;
+const playerFlagCtx = playerFlagTexture.getContext('2d');
+playerFlagCtx.fillStyle = '#ed1833'; playerFlagCtx.fillRect(0, 0, 300, 200);
+playerFlagCtx.fillStyle = '#ffd400';
+playerFlagCtx.beginPath();
+for (let point = 0; point < 10; point++) {
+  const angle = -Math.PI / 2 + point * Math.PI / 5;
+  const radius = point % 2 ? 24 : 52;
+  const x = 150 + Math.cos(angle) * radius, y = 100 + Math.sin(angle) * radius;
+  if (point === 0) playerFlagCtx.moveTo(x, y); else playerFlagCtx.lineTo(x, y);
+}
+playerFlagCtx.closePath(); playerFlagCtx.fill();
+function drawWavingPennant(x, y, w, h, phase, response = 0, texture = flagTexture) {
+ const slices = 24;
  const speed = Math.max(0, Math.min(1, (sceneSpeed - RULES.initialSpeed) / (RULES.maximumSpeed - RULES.initialSpeed)));
  const amplitude = visualReducedMotion ? 0 : (1 + speed * 2.5 + response * 2.7);
  const vertex = (u, lower) => {
@@ -512,28 +603,14 @@ function drawWavingPennant(x, y, w, h, phase, response = 0) {
  for (let i = 0; i < slices; i++) {
    const a = vertex(i / slices, false), b = vertex((i + 1) / slices, false);
    const c = vertex((i + 1) / slices, true), d = vertex(i / slices, true);
-   ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.lineTo(d.x, d.y); ctx.closePath();
-   ctx.fillStyle = i % 3 === 1 ? '#c70d28' : '#ed1833'; ctx.fill();
-   if (i === 2 || i === 5) { ctx.strokeStyle = '#ffd40088'; ctx.lineWidth = .8; ctx.stroke(); }
+   ctx.save();
+   ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.lineTo(c.x, c.y); ctx.lineTo(d.x, d.y); ctx.closePath(); ctx.clip();
+   const offset = (a.y + b.y + c.y + d.y) / 4 - (y + h / 2);
+   const sliceWidth = texture.width / slices;
+   ctx.drawImage(texture, i * sliceWidth, 0, sliceWidth + 1, texture.height,
+     x + w * i / slices, y + offset, w / slices + .6, h);
+   ctx.restore();
  }
- ctx.strokeStyle = '#ffd400'; ctx.lineWidth = Math.max(1, h * .055);
- for (const edge of [false, true]) {
-   ctx.beginPath();
-   for (let i = 0; i <= slices; i++) {
-     const p = vertex(i / slices, edge);
-     if (!i) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
-   }
-   ctx.stroke();
- }
- const top = vertex(.48, false), bottom = vertex(.48, true);
- const cx = x + w * .48, cy = (top.y + bottom.y) / 2;
- ctx.fillStyle = '#ffd400'; ctx.beginPath();
- for (let i = 0; i < 10; i++) {
-   const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? h * .085 : h * .17;
-   const px = cx + Math.cos(a) * r, py = cy + Math.sin(a) * r;
-   if (!i) ctx.moveTo(px, py); else ctx.lineTo(px, py);
- }
- ctx.closePath(); ctx.fill();
 }
 function lampPositions() {
  return Array.from({ length: 5 }, (_, i) => ((i * 350 - worldDistance * .68) % 1320 + 1320) % 1320 - 130);
@@ -543,36 +620,37 @@ function drawStreetLamps() {
    if (x < -45 || x > RULES.width + 45) continue;
    const top = ground - 158;
    const glow = ctx.createRadialGradient(x + 17, top + 4, 2, x + 17, top + 4, 72);
-   glow.addColorStop(0, '#ffe4a944'); glow.addColorStop(1, '#ffe4a900');
+   glow.addColorStop(0, '#ffd40038'); glow.addColorStop(1, '#ffd40000');
    ctx.fillStyle = glow; ctx.fillRect(x - 55, top - 64, 145, 150);
-   line(x, ground, x + 1, top + 13, '#39464a', 4);
-   line(x + 1, top + 13, x + 18, top + 4, '#39464a', 3);
-   line(x + 18, top + 4, x + 31, top + 4, '#39464a', 3);
-   ctx.fillStyle = '#ffd98b'; ctx.beginPath(); ctx.arc(x + 28, top + 7, 4, 0, Math.PI * 2); ctx.fill();
+   line(x, ground, x + 1, top + 13, '#4a4247', 4);
+   line(x + 1, top + 13, x + 18, top + 4, '#4a4247', 3);
+   line(x + 18, top + 4, x + 31, top + 4, '#4a4247', 3);
+   ctx.fillStyle = '#ffd95c'; ctx.beginPath(); ctx.arc(x + 28, top + 7, 4, 0, Math.PI * 2); ctx.fill();
  }
 }
 function drawLampPools() {
  for (const x of lampPositions()) {
    if (x < -80 || x > RULES.width + 80) continue;
    const pool = ctx.createRadialGradient(x + 16, ground + 30, 2, x + 16, ground + 30, 74);
-   pool.addColorStop(0, '#f6d99a24'); pool.addColorStop(.55, '#f6d99a12'); pool.addColorStop(1, '#f6d99a00');
+   pool.addColorStop(0, '#ffd40024'); pool.addColorStop(.55, '#ffd40012'); pool.addColorStop(1, '#ffd40000');
    ctx.fillStyle = pool; ctx.fillRect(x - 58, ground + 7, 150, 76);
  }
 }
 function drawCarriedFlag(sprite, spriteX, spriteY, targetH, player, speed, elapsed, sliding) {
- if (visualReducedMotion) return;
  const sw = sprite.naturalWidth, sh = sprite.naturalHeight, scale = targetH / sh;
  const map = sliding
    ? { poleTop:[.56,.02], poleBottom:[.60,.62], freeTop:[.025,.14], freeBottom:[.08,.67] }
    : { poleTop:[.39,.015], poleBottom:[.45,.29], freeTop:[.045,.08], freeBottom:[.055,.285] };
  const point = pair => ({ x: spriteX + pair[0] * sw * scale, y: spriteY + pair[1] * sh * scale });
  const pTop = point(map.poleTop), pBottom = point(map.poleBottom), fTop = point(map.freeTop), fBottom = point(map.freeBottom);
- const path = () => { ctx.beginPath(); ctx.moveTo(pTop.x,pTop.y); ctx.lineTo(fTop.x,fTop.y); ctx.lineTo(fBottom.x,fBottom.y); ctx.lineTo(pBottom.x,pBottom.y); ctx.closePath(); };
- ctx.save(); ctx.globalCompositeOperation = 'destination-out'; path(); ctx.fill(); ctx.restore();
  const speedFactor = Math.max(0, Math.min(1, (speed - RULES.initialSpeed) / (RULES.maximumSpeed - RULES.initialSpeed)));
  const jumpLift = player.vy < 0 ? Math.min(1, -player.vy / Math.abs(RULES.jumpVelocity)) : 0;
  const slideDrop = player.slide > 0 ? Math.min(1, player.slide / RULES.slideSeconds) : 0;
- const amplitude = (1.4 + speedFactor * 3 + jumpLift * 5 + slideDrop * 2.2) * scale;
+ const poleTilt = visualReducedMotion ? 0 : jumpLift * 2.5 * scale;
+ pTop.x -= poleTilt;
+ const path = () => { ctx.beginPath(); ctx.moveTo(pTop.x,pTop.y); ctx.lineTo(fTop.x,fTop.y); ctx.lineTo(fBottom.x,fBottom.y); ctx.lineTo(pBottom.x,pBottom.y); ctx.closePath(); };
+ ctx.save(); ctx.globalCompositeOperation = 'destination-out'; path(); ctx.fill(); ctx.restore();
+ const amplitude = visualReducedMotion ? 0 : (1.4 + speedFactor * 3 + jumpLift * 5 + slideDrop * 2.2) * scale;
  const phase = elapsed * (6.4 + speedFactor * 2.2);
  const vertex = (u, lower) => {
    const a = lower ? pBottom : pTop, b = lower ? fBottom : fTop;
@@ -580,26 +658,26 @@ function drawCarriedFlag(sprite, spriteX, spriteY, targetH, player, speed, elaps
    const inputShift = (-jumpLift * sh * .045 + slideDrop * sh * .035) * scale * u;
    return { x: a.x + (b.x - a.x) * u, y: a.y + (b.y - a.y) * u + ripple + inputShift };
  };
- const slices = 14;
+ const slices = 24, sliceWidth = playerFlagTexture.width / slices;
  for (let i = 0; i < slices; i++) {
-   const a = vertex(i / slices, false), b = vertex((i + 1) / slices, false);
-   const c = vertex((i + 1) / slices, true), d = vertex(i / slices, true);
-   ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.lineTo(c.x,c.y); ctx.lineTo(d.x,d.y); ctx.closePath();
-    ctx.fillStyle = i % 4 === 1 ? '#b90d27' : '#e51b35'; ctx.fill();
+   const u0 = i / slices, u1 = (i + 1) / slices;
+   const a = vertex(u0, false), b = vertex(u1, false);
+   const c = vertex(u1, true), d = vertex(u0, true);
+   ctx.save();
+   ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.lineTo(c.x,c.y); ctx.lineTo(d.x,d.y); ctx.closePath(); ctx.clip();
+   const sourceIndex = b.x < a.x ? slices - 1 - i : i;
+   const left = Math.min(a.x, b.x), top = (a.y + b.y) / 2;
+   const width = Math.max(.8, Math.abs(b.x - a.x) + .5);
+   const height = Math.max(1, (c.y + d.y - a.y - b.y) / 2);
+   ctx.drawImage(playerFlagTexture, sourceIndex * sliceWidth, 0, sliceWidth + 1, playerFlagTexture.height,
+     left, top, width, height);
+   ctx.restore();
  }
- for (const u of [.28,.63,.86]) {
-   const a = vertex(u, false), b = vertex(u, true);
-    ctx.strokeStyle = '#ffd40070'; ctx.lineWidth = .8 * scale; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
- }
- const top = vertex(.5, false), bottom = vertex(.5, true), cx = (top.x + bottom.x) / 2, cy = (top.y + bottom.y) / 2;
- const radius = sh * scale * (sliding ? .075 : .052);
-  ctx.fillStyle = '#ffd400'; ctx.beginPath();
- for (let i = 0; i < 10; i++) {
-   const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? radius * .43 : radius;
-   const px = cx + Math.cos(a) * r, py = cy + Math.sin(a) * r;
-   if (!i) ctx.moveTo(px,py); else ctx.lineTo(px,py);
- }
- ctx.closePath(); ctx.fill();
+ // A narrow silver-gray pole tilts back on a jump, returning upright as the runner lands.
+ const poleGradient = ctx.createLinearGradient(pTop.x - 1.5 * scale, pTop.y, pBottom.x + 2 * scale, pBottom.y);
+ poleGradient.addColorStop(0, '#f4f4f2'); poleGradient.addColorStop(.42, '#747982'); poleGradient.addColorStop(.72, '#d9dce0'); poleGradient.addColorStop(1, '#555b65');
+ ctx.strokeStyle = poleGradient; ctx.lineWidth = Math.max(1.3, 2.4 * scale);
+ ctx.beginPath(); ctx.moveTo(pTop.x, pTop.y); ctx.lineTo(pBottom.x, pBottom.y); ctx.stroke();
 }
 function drawFlagTrail(x, y, scale, speed, elapsed, reducedMotion) {
  if (reducedMotion || speed < 405) return;
@@ -607,7 +685,7 @@ function drawFlagTrail(x, y, scale, speed, elapsed, reducedMotion) {
  ctx.save(); ctx.globalAlpha = strength;
  for (let i = 0; i < 3; i++) {
    const phase = elapsed * 8 + i * 1.9, startY = y + scale * (22 + i * 9) + Math.sin(phase) * 2;
-   ctx.strokeStyle = i === 1 ? '#f5655e' : '#ffe4b1'; ctx.lineWidth = Math.max(.8, scale * (2.5 - i * .45));
+   ctx.strokeStyle = i === 1 ? '#ffd400' : i === 2 ? '#ed1833' : '#fff'; ctx.lineWidth = Math.max(.8, scale * (2.5 - i * .45));
    ctx.beginPath(); ctx.moveTo(x + scale * 9, startY);
    ctx.quadraticCurveTo(x - 11 - i * 5, startY + Math.sin(phase + 1) * 4, x - 29 - i * 7, startY + Math.cos(phase) * 5); ctx.stroke();
  }
@@ -619,17 +697,17 @@ function mixColor(from, to, amount) {
  return `rgb(${a.map((value, i) => Math.round(value + (b[i] - value) * amount)).join(',')})`;
 }
 function drawSky(){
-  // A slow run-time palette shift gives long runs a day-to-sunset arc.
+  // The sky deepens from near-black into a cinematic red twilight as the run continues.
   const dusk = Math.min(1, Math.max(0, sceneTime / 110));
  const g=ctx.createLinearGradient(0,0,0,ground);
-   const skyTop=mixColor('#08080a','#100006',dusk), skyMiddle=mixColor('#210811','#390711',dusk);
-   const skyHorizon=mixColor('#5b160c','#97111d',dusk), buildingColor=mixColor('#250b11','#18070c',dusk);
-   const windowColor=mixColor('#ffd400','#ffb900',dusk), landmarkColor=mixColor('#76101f','#4a0713',dusk);
+   const skyTop=mixColor('#111014','#08070a',dusk), skyMiddle=mixColor('#260d17','#390814',dusk);
+   const skyHorizon=mixColor('#671c2a','#a31c25',dusk), buildingColor=mixColor('#270d16','#18080e',dusk);
+   const windowColor=mixColor('#ffd400','#fff1a6',dusk), landmarkColor=mixColor('#711523','#4b0d19',dusk);
   g.addColorStop(0,skyTop);g.addColorStop(.52,skyMiddle);g.addColorStop(1,skyHorizon);
  ctx.fillStyle=g;ctx.fillRect(0,0,960,ground);
  const glow=ctx.createRadialGradient(650,185,12,650,185,230);
-   glow.addColorStop(0,`rgba(255,${Math.round(221-18*dusk)},${Math.round(0+8*dusk)},.56)`);
-   glow.addColorStop(1,'rgba(255,92,0,0)');
+   glow.addColorStop(0,`rgba(255,${Math.round(70-12*dusk)},${Math.round(31+9*dusk)},.27)`);
+   glow.addColorStop(1,'rgba(237,24,51,0)');
  ctx.fillStyle=glow;ctx.fillRect(400,0,500,ground);
   if (dusk > .62) {
     ctx.save(); ctx.globalAlpha = (dusk - .62) * 1.8;
@@ -643,7 +721,7 @@ function drawSky(){
  // Soft rounded clouds instead of block clouds.
  for(let i=0;i<6;i++){
    const x=((i*190-worldDistance*.12)%1120+1120)%1120-90,y=60+(i%3)*48;
-   ctx.fillStyle='#4c101a';ctx.beginPath();
+   ctx.fillStyle='#35131d';ctx.beginPath();
    ctx.ellipse(x+35,y+8,43,12,0,0,Math.PI*2);
    ctx.ellipse(x+20,y+3,20,13,0,0,Math.PI*2);
    ctx.ellipse(x+48,y-4,24,17,0,0,Math.PI*2);
@@ -659,68 +737,77 @@ function drawSky(){
  // India Gate inspired landmark with arch cutout.
   ctx.fillStyle=landmarkColor;
  ctx.beginPath();ctx.moveTo(685,240);ctx.lineTo(698,157);ctx.lineTo(720,157);ctx.lineTo(728,119);ctx.lineTo(792,119);ctx.lineTo(800,157);ctx.lineTo(821,157);ctx.lineTo(835,240);ctx.closePath();ctx.fill();
-   rect(680,235,160,9,mixColor('#6f1820','#3d080f',dusk));rect(710,160,100,5,'#ffd400');
-   ctx.fillStyle='#10070a';ctx.beginPath();ctx.moveTo(739,240);ctx.lineTo(744,185);ctx.quadraticCurveTo(760,168,776,185);ctx.lineTo(781,240);ctx.closePath();ctx.fill();
+   rect(680,235,160,9,mixColor('#55131e','#350b14',dusk));rect(710,160,100,5,'#ffd400');
+   ctx.fillStyle='#09090b';ctx.beginPath();ctx.moveTo(739,240);ctx.lineTo(744,185);ctx.quadraticCurveTo(760,168,776,185);ctx.lineTo(781,240);ctx.closePath();ctx.fill();
  // Trees with rounded canopies and gentle parallax.
  for(let i=0;i<18;i++){
    const x=((i*65-worldDistance*.19)%1120+1120)%1120-60;
-   rect(x,276,7,95,'#17090d');
-   ctx.fillStyle=i%2?'#32101a':'#44101b';ctx.beginPath();
+   rect(x,276,7,95,'#10090d');
+   ctx.fillStyle=i%2?'#241018':'#32101a';ctx.beginPath();
    ctx.arc(x+2,263,21,0,Math.PI*2);ctx.arc(x-9,274,15,0,Math.PI*2);ctx.arc(x+14,275,15,0,Math.PI*2);ctx.fill();
-   ctx.fillStyle='#5a111d';ctx.beginPath();ctx.arc(x+1,250,13,0,Math.PI*2);ctx.fill();
+   ctx.fillStyle='#42121d';ctx.beginPath();ctx.arc(x+1,250,13,0,Math.PI*2);ctx.fill();
  }
  // Protest crowd silhouettes and smaller wind-blown flags.
  for(let i=0;i<88;i++){
    const x=((i*27-worldDistance*.42)%1050+1050)%1050-25,y=334+(i%4)*7;
-   ctx.fillStyle=i%4===0?'#9d1728':i%3===0?'#50121b':'#130a0d';
+   ctx.fillStyle=i%4===0?'#571321':i%3===0?'#301018':'#100a0e';
    ctx.beginPath();ctx.arc(x+3,y-5,3.5,0,Math.PI*2);ctx.fill();
-   rect(x,y,6,14,i%4===0?'#9d1728':'#130a0d');
-   if(i%12===0){rect(x+7,y-31,2,30,'#151012');drawWavingPennant(x+9,y-30,22,13,sceneTime*5+i,flagResponse);}
+   rect(x,y,6,14,i%4===0?'#571321':'#100a0e');
+   if(i%12===0){rect(x+7,y-31,2,30,'#adb0b5');drawWavingPennant(x+9,y-30,19.5,13,sceneTime*5+i,flagResponse);}
  }
  // Foreground flags and warm street lamps add movement and depth.
  for(let i=0;i<7;i++){
    const x=((i*157-worldDistance*.63)%1050+1050)%1050;
-   rect(x,270,3,57,'#161012');
+   rect(x,270,3,57,'#9ca1aa');
    drawWavingPennant(x+3,272,32,21,sceneTime*5+i*1.7,flagResponse);
  }
  drawStreetLamps();
 }
 function drawGround(){
- const road=ctx.createLinearGradient(0,ground,0,540);road.addColorStop(0,'#202024');road.addColorStop(1,'#08080a');
+ const road=ctx.createLinearGradient(0,ground,0,540);road.addColorStop(0,'#21171c');road.addColorStop(1,'#08080a');
  ctx.fillStyle=road;ctx.fillRect(0,ground,960,115);
- rect(0,ground,960,6,'#d91630');rect(0,ground+6,960,3,'#ffd400');
+ rect(0,ground,960,5,'#ed1833');rect(0,ground+5,960,2,'#ffd400');
  for(let x=-(worldDistance%112);x<1000;x+=112){
-   rect(x,ground+18,68,6,'#ffd400');rect(x+14,ground+45,46,3,'#5a5a5a');
-   rect(x+34,ground+68,54,2,'#303034');
+   rect(x,ground+18,68,5,'#ffd400');rect(x+14,ground+45,46,3,'#62575d');
+   rect(x+34,ground+68,54,2,'#3a3036');
  }
- rect(0,ground+92,960,8,'#d91630');
+ rect(0,ground+92,960,8,'#ed1833');
 }
-function drawBarricade(o){let x=o.x,y=ground-58;rect(x,y, o.w,48,'#eaa91d');rect(x+4,y+5,o.w-8,36,'#f6c44c');rect(x+8,y+10,o.w-16,6,'#b66b15');rect(x+8,y+27,o.w-16,6,'#b66b15');rect(x+6,y+43,8,12,'#c87b13');rect(x+o.w-14,y+43,8,12,'#c87b13');text(o.type==='police'?'RIVAL': 'DELHI POLICE',x+o.w/2,y+25, o.w<70?9:11,'#842a20','center');}
-function drawCone(o){let x=o.x,y=ground-45;rect(x+9,y+5,16,32,'#f04a37');rect(x+5,y+16,24,8,'#f6f0dc');rect(x,y+37,34,7,'#f4e6c9')}
+function drawBarricade(o){
+ const x=o.x,y=ground-58,w=o.w;
+ rect(x,y,w,48,'#09090b');rect(x+2,y+2,w-4,42,'#ed1833');
+ for(let stripe=-24;stripe<w;stripe+=27){
+   ctx.fillStyle='#ffd400';ctx.beginPath();ctx.moveTo(x+stripe,y+42);ctx.lineTo(x+stripe+17,y+4);ctx.lineTo(x+stripe+25,y+4);ctx.lineTo(x+stripe+8,y+42);ctx.closePath();ctx.fill();
+ }
+ rect(x+6,y+44,8,12,'#171419');rect(x+w-14,y+44,8,12,'#171419');
+ text('BARRICADE',x+w/2,y+28,w<70?7:9,'#fff','center');
+}
+function drawCone(o){let x=o.x,y=ground-45;rect(x+8,y+4,18,33,'#ed1833');rect(x+7,y+15,20,8,'#fff');rect(x+5,y+29,24,6,'#ffd400');rect(x,y+37,34,7,'#30282d')}
 function drawPolice(o){
  const x=o.x,y=ground-83;
- // Shadow and boots
- ctx.fillStyle='#11192380';ctx.beginPath();ctx.ellipse(x+34,ground+1,35,5,0,0,Math.PI*2);ctx.fill();
- rect(x+13,y+64,15,13,'#182330');rect(x+36,y+64,16,13,'#182330');
- rect(x+8,y+73,23,6,'#111a24');rect(x+32,y+73,24,6,'#111a24');
- // Khaki uniform legs and torso
- rect(x+14,y+43,14,24,'#861027');rect(x+35,y+42,14,25,'#9c1229');
- rect(x+13,y+25,39,27,'#ad142d');rect(x+8,y+29,13,21,'#ad142d');rect(x+47,y+29,12,17,'#ad142d');
- rect(x+17,y+30,31,4,'#141416');rect(x+29,y+30,4,21,'#141416');
- // Shoulder patches and badge
- rect(x+15,y+25,9,5,'#171719');rect(x+42,y+25,8,5,'#171719');rect(x+36,y+35,6,7,'#ffd400');
- // Neck, face, moustache
- rect(x+26,y+15,13,12,'#b87553');rect(x+21,y+2,25,23,'#b87553');
- rect(x+19,y+4,29,8,'#171719');rect(x+21,y-2,25,10,'#171719');rect(x+17,y+4,7,11,'#171719');
- rect(x+25,y+11,4,3,'#1b2029');rect(x+38,y+11,4,3,'#1b2029');rect(x+29,y+17,13,4,'#32252a');
- // Riot helmet visor
- rect(x+21,y+4,25,4,'#101012');rect(x+22,y+8,24,4,'#ffd400');
- // Arm holding baton
- rect(x+50,y+28,9,14,'#ad142d');rect(x+55,y+17,5,18,'#171719');rect(x+56,y+12,4,9,'#4b4b50');
- // Shield foreground
- rect(x+2,y+31,19,31,'#111114');rect(x+4,y+34,15,24,'#76101f');rect(x+5,y+36,13,4,'#ffd400');
- text('POLICE',x+11,y+47,5,'#f8f4e9','center');
- rect(x+3,y+60,17,3,'#18283a');
+ // Deliberately rigid, wide stance with a bold ink outline and khaki uniform.
+ const outline=(rx,ry,rw,rh,fill,width=2)=>{rect(rx,ry,rw,rh,fill);ctx.strokeStyle='#08080a';ctx.lineWidth=width;ctx.strokeRect(rx,ry,rw,rh)};
+ ctx.fillStyle='#0000008a';ctx.beginPath();ctx.ellipse(x+34,ground+1,35,5,0,0,Math.PI*2);ctx.fill();
+ outline(x+10,y+64,18,13,'#171419');outline(x+36,y+64,18,13,'#171419');
+ outline(x+5,y+73,25,6,'#08080a');outline(x+33,y+73,27,6,'#08080a');
+ outline(x+14,y+43,15,24,'#b49b76');outline(x+35,y+42,15,25,'#c3b091');
+ outline(x+13,y+25,39,28,'#c3b091',3);
+ outline(x+7,y+29,14,21,'#b49b76');outline(x+47,y+29,13,17,'#c3b091');
+ // Dark belt, shoulder boards, and a clear gold badge.
+ rect(x+16,y+48,34,6,'#171419');
+ outline(x+15,y+24,10,6,'#574b3c',1.5);outline(x+41,y+24,10,6,'#574b3c',1.5);
+ ctx.fillStyle='#ffd400';ctx.beginPath();ctx.arc(x+38,y+37,4,0,Math.PI*2);ctx.fill();
+ ctx.strokeStyle='#08080a';ctx.lineWidth=1.2;ctx.stroke();
+ rect(x+26,y+15,13,12,'#b87553');outline(x+21,y+2,25,23,'#b87553',2);
+ // Dark peaked cap and facial details.
+ outline(x+19,y+1,29,9,'#171419',2);rect(x+17,y+5,32,5,'#08080a');
+ rect(x+25,y+11,4,3,'#171419');rect(x+38,y+11,4,3,'#171419');rect(x+29,y+17,13,4,'#38252a');
+ // Raised arm, red lathi, and compact dark shield.
+ outline(x+49,y+28,11,14,'#c3b091');
+ ctx.save();ctx.translate(x+57,y+27);ctx.rotate(.12);outline(-2,-14,5,22,'#9f1023',1.5);ctx.restore();
+ outline(x+2,y+31,20,32,'#171419',3);outline(x+5,y+34,14,23,'#313137',1.5);
+ rect(x+6,y+36,12,3,'#ffd400');text('POLICE',x+12,y+48,5,'#fff','center');
+ rect(x+4,y+60,16,3,'#08080a');
 }
 function drawPlayerFallback(){
  let x=player.x,y=player.y,h=player.slide?48:78;
@@ -800,7 +887,7 @@ function drawSpeedLines(speed, reducedMotion) {
     const inset = (worldDistance * (0.7 + i * .025) + i * 19) % 54;
     const x = right ? 960 - inset : inset;
     const length = 26 + intensity * 42;
-    const color = i % 3 === 0 ? '#ffd400' : i % 3 === 1 ? '#f02a40' : '#ffffff';
+    const color = i % 3 === 0 ? '#ffd400' : i % 3 === 1 ? '#ed1833' : '#ffffff';
     line(x, y, x + (right ? -length : length), y, color, 1 + intensity);
  }
  ctx.restore();
@@ -810,15 +897,15 @@ function draw(state, reducedMotion = false, shakeX = 0, shakeY = 0) {
  sceneTime = reducedMotion ? 0 : state.elapsed; sceneSpeed = state.speed; visualReducedMotion = reducedMotion;
  flagResponse = reducedMotion ? 0 : Math.min(1, Math.max(0, -state.player.vy / Math.abs(RULES.jumpVelocity)) + (state.player.slide > 0 ? .55 : 0));
  ctx.clearRect(0, 0, RULES.width, RULES.height);
- ctx.fillStyle = '#08080a'; ctx.fillRect(0, 0, RULES.width, RULES.height);
+ ctx.fillStyle = '#09090b'; ctx.fillRect(0, 0, RULES.width, RULES.height);
  ctx.save(); ctx.translate(shakeX, shakeY);
  drawSky(); drawGround(); drawLampPools(); drawSpeedLines(state.speed, reducedMotion);
- rect(790,300,145,36,'#ed1833');rect(796,306,133,24,'#101013');text('JANTAR MANTAR',862,322,13,'#fff','center');
+ rect(790,300,145,36,'#ed1833');rect(796,306,133,24,'#211116');text('JANTAR MANTAR',862,322,13,'#ffd400','center');
  state.collectibles.forEach(c => {
    const bob = reducedMotion ? 0 : Math.sin((frame + c.x) * .08) * 4;
    ctx.fillStyle = '#ffd40035'; ctx.beginPath(); ctx.arc(c.x + 15, ground - 92 + bob, 25, 0, Math.PI * 2); ctx.fill();
    rect(c.x,ground-104+bob,5,29,'#e8e3d5');
-   drawWavingPennant(c.x+5,ground-102+bob,26,17,sceneTime*6+c.x*.03,flagResponse);
+   drawWavingPennant(c.x+5,ground-102+bob,26,17,sceneTime*6+c.x*.03,flagResponse,playerFlagTexture);
    text('+10',c.x+12,ground-112+bob,10,'#fff','center');
  });
  state.obstacles.forEach(o => o.type === 'banner' ? drawBanner(o) : o.type === 'cone' ? drawCone(o) : o.type === 'police' ? drawPolice(o) : drawBarricade(o));
